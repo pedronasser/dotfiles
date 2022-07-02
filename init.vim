@@ -69,10 +69,12 @@ Plug 'folke/trouble.nvim'
 Plug 'github/copilot.vim'
 
 " File manager
-Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+"Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Debugging
 Plug 'nvim-lua/plenary.nvim'
@@ -124,8 +126,8 @@ colorscheme onedark
 
 
 " Hotkey to open the file explorer
-nnoremap <C-B> :CHADopen<cr>
-nnoremap <C-O> :CHADopen<cr>
+nnoremap <C-B> :NvimTreeToggle<cr>
+nnoremap <C-O> :NvimTreeFocus<cr>
 nnoremap <C-L> :call setqflist([])<cr>
 
 " Move to previous/next
@@ -348,6 +350,9 @@ require("telescope").setup {
 require("telescope").load_extension("ui-select")
 EOF
 
+lua << EOF
+require("nvim-tree").setup()
+EOF
 
 lua << EOF
   require("trouble").setup {
@@ -417,8 +422,13 @@ highlight CopilotSuggestion guifg=#555555 ctermfg=8
 imap <silent><script><expr> <C-Insert> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 
+let g:chadtree_settings = {
+    \  'theme.text_colour_set': 'nerdtree_syntax_dark'
+    \ }
+
 lua << EOF
 vim.diagnostic.config({
     underline = false
 })
 EOF
+
