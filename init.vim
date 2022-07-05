@@ -6,10 +6,10 @@ set number                  " add line numbers
 "set wildmode=longest,list   " get bash-like tab completions
 syntax enable
 filetype plugin indent on   " allows auto-indenting depending on file t
-set tabstop=4               " number of columns occupied by a tab character
+set tabstop=2               " number of columns occupied by a tab character
 set expandtab               " converts tabs to white space
-set shiftwidth=4            " width for autoindents
-set softtabstop=4           " see multiple spaces as tabstops so <BS> does the right thing
+set shiftwidth=2            " width for autoindents
+set softtabstop=2           " see multiple spaces as tabstops so <BS> does the right thing
 set clipboard=unnamedplus
 set cursorline
 set mouse=a
@@ -99,6 +99,7 @@ let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', '
 Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
+
 
 
 " initialize plugin system
@@ -195,6 +196,9 @@ vmap <C-c> "+yi
 vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
+
+vmap <Tab> >gv
+vmap <S-Tab> <gv
 
 let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
@@ -410,16 +414,14 @@ set background=dark
 set termguicolors
 let &t_8f = "\e[38;2;%lu;%lu;%lum"
 let &t_8b = "\e[48;2;%lu;%lu;%lum"
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-    \ execute 'CHADopen' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 
 "autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
 autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
 
 highlight CopilotSuggestion guifg=#555555 ctermfg=8
 
-imap <silent><script><expr> <C-Insert> copilot#Accept("\<CR>")
+imap <silent><script><expr> <C-I> copilot#Accept("\<CR>")
+
 let g:copilot_no_tab_map = v:true
 
 let g:chadtree_settings = {
