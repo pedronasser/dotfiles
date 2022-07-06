@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/bash
 
 languages=`echo $CHT_SH_LANGUAGES | tr ' ' '\n'`
 

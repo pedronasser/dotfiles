@@ -3,7 +3,7 @@ set ignorecase              " case insensitive matching
 set hlsearch                " highlight search results
 set autoindent              " indent a new line the same amount as the line just typed
 set number                  " add line numbers
-"set wildmode=longest,list   " get bash-like tab completions
+set wildmode=longest,list   " get bash-like tab completions
 syntax enable
 filetype plugin indent on   " allows auto-indenting depending on file t
 set tabstop=2               " number of columns occupied by a tab character
@@ -14,22 +14,20 @@ set clipboard=unnamedplus
 set cursorline
 set mouse=a
 set noshowmode
-"autocmd BufRead,BufNewFile * set signcolumn=yes
 set signcolumn=yes
 set foldmethod=indent
 set nofoldenable
 set encoding=UTF-8
 set splitbelow splitright
 set hidden
-
-"""set colorcolumn=80
-
 set completeopt=menuone,noinsert,noselect
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
 " specify directory for plugins
 call plug#begin('~/.config/nvim/plugged')
+
+Plug 'folke/which-key.nvim'
 
 " Toggle comments
 Plug 'preservim/nerdcommenter'
@@ -85,8 +83,6 @@ Plug 'mfussenegger/nvim-dap'
 Plug 'itchyny/lightline.vim'
 
 " File lookup
-"Plug 'ctrlpvim/ctrlp.vim'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 Plug 'joshdick/onedark.vim'
@@ -99,7 +95,6 @@ let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', '
 Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
-
 
 
 " initialize plugin system
@@ -124,129 +119,6 @@ if (has("autocmd"))
 endif
 
 colorscheme onedark
-
-
-" Hotkey to open the file explorer
-nnoremap <C-B> :NvimTreeToggle<cr>
-nnoremap <C-O> :NvimTreeFocus<cr>
-nnoremap <C-L> :call setqflist([])<cr>
-
-" Move to previous/next
-nnoremap <silent>    <A-Left> :BufferPrevious<CR>
-nnoremap <silent>    <A-Right> :BufferNext<CR>
-" Re-order to previous/next
-nnoremap <silent>    <C-A-Left> :BufferMovePrevious<CR>
-nnoremap <silent>    <C-A-Right> :BufferMoveNext<CR>
-" Goto buffer in position...
-nnoremap <silent>    <A-1> :BufferGoto 1<CR>
-nnoremap <silent>    <A-2> :BufferGoto 2<CR>
-nnoremap <silent>    <A-3> :BufferGoto 3<CR>
-nnoremap <silent>    <A-4> :BufferGoto 4<CR>
-nnoremap <silent>    <A-5> :BufferGoto 5<CR>
-nnoremap <silent>    <A-6> :BufferGoto 6<CR>
-nnoremap <silent>    <A-7> :BufferGoto 7<CR>
-nnoremap <silent>    <A-8> :BufferGoto 8<CR>
-nnoremap <silent>    <A-9> :BufferGoto 9<CR>
-nnoremap <silent>    <A-0> :BufferLast<CR>
-
-" Close buffer
-nnoremap <silent>    <A-w> :BufferClose<CR>
-
-nnoremap <silent>   <C-p> :Clap files!<CR>
-nnoremap <silent>   <C-S-o> :Clap filer<CR>
-nnoremap <silent>   <S-Tab> :Clap buffers<CR>
-nnoremap <silent>   <C-S-p> :Clap<CR>
-nnoremap <silent>   <C-S-g> :Clap grep<CR>
-
-nnoremap <Tab> <C-w>w
-nnoremap <C-S-v> <C-w>j
-nnoremap <C-S-h> <C-w>q
-
-" Keybindings to move lines
-" 
-xnoremap <C-S-Up>     :m-2<CR>gv=gv
-xnoremap <C-S-Down>   :m'>+<CR>gv=gv
-
-" move current line up one line
-nnoremap <C-S-Up>  :<C-u>m-2<CR>==
-
-" move current line down one line
-nnoremap <C-S-Down> :<C-u>m+<CR>==
-
-nmap <S-Up> v<Up>
-nmap <S-Down> v<Down>
-nmap <S-Left> v<Left>
-nmap <S-Right> v<Right>
- 
-vmap <S-Up> <Up>
-vmap <S-Down> <Down>
-vmap <S-Left> <Left>
-vmap <S-Right> <Right>
-
-map <C-a> <esc>ggVG<CR>
-
-" Duplicate the current line
-nnoremap <A-d> <ESC>Yp
-
-" Delete current line
-nnoremap <C-Delete> <ESC>dd
-
-" Tradicional CTRL-C, CTRL-V and CTRL-X behaviors
-vmap <C-c> "+yi
-vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <C-r><C-o>+
-
-vmap <Tab> >gv
-vmap <S-Tab> <gv
-
-let g:VM_maps = {}
-let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
-let g:VM_maps['Find Subword Under'] = '<C-d>'  
-
-nnoremap <silent> <C-Enter> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <S-Space> <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <A-Enter> <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-
-" Quick-fix
-nnoremap <silent> <C-`>    <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <C-'>    <cmd>lua vim.lsp.buf.code_action()<CR>
-
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-" Goto previous/next diagnostic warning/error
-nnoremap <silent> g[ <cmd>lua vim.diagnostic.goto_prev()<CR>
-nnoremap <silent> g] <cmd>lua vim.diagnostic.goto_next()<CR>
-
-noremap <C-S>          :update<CR>
-vnoremap <C-S>         <C-C>:update<CR>
-inoremap <C-S>         <C-O>:update<CR>
-
-noremap <C-Q>          :q<CR>
-vnoremap <C-Q>         <C-C>:q<CR>
-inoremap <C-Q>         <C-O>:q<CR>
-
-nnoremap <C-Z> u
-nnoremap <C-S-Z> <C-R>
-nnoremap <C-Y> <C-R>
-
-inoremap <C-Z> <C-O>u
-inoremap <C-S-Z> <C-O><C-R>
-inoremap <C-Y> <C-O><C-R>
-
-"Toggle comments
-nmap <C-/>   <Plug>NERDCommenterToggle
-vmap <C-/>   <Plug>NERDCommenterToggle<CR>gv
-
-map <C-A-J> <cmd>TroubleToggle<cr>
-
-" Trigger CoC format 
-vmap <C-S-f>  <Plug>(coc-format-selected)
-nmap <C-S-f>  <Plug>(coc-format-selected)
 
 " See https://github.com/simrat39/rust-tools.nvim#configuration
 lua <<EOF
@@ -390,9 +262,6 @@ let g:airline_theme='onedark'
 let g:airline_powerline_fonts = 1
 let g:airline_extensions = ['branch']
 
-"  " disable globally
-"let g:airline_disable_statusline = 1
-
 let g:clap_disable_run_rooter = v:true
 
 let g:lightline = {
@@ -424,13 +293,10 @@ imap <silent><script><expr> <C-I> copilot#Accept("\<CR>")
 
 let g:copilot_no_tab_map = v:true
 
-let g:chadtree_settings = {
-    \  'theme.text_colour_set': 'nerdtree_syntax_dark'
-    \ }
-
 lua << EOF
 vim.diagnostic.config({
     underline = false
 })
 EOF
 
+source ~/dotfiles/init/keybindings.vim
