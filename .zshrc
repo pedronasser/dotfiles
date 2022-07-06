@@ -150,7 +150,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
-
+alias code="kitty --detach --session ~/dotfiles/kitty-session-neovim.conf"
+ 
 export PATH=$PATH:~/.local/bin
 
 [[ -s "/home/pedronasser/.gvm/scripts/gvm" ]] && source "/home/pedronasser/.gvm/scripts/gvm"
@@ -161,3 +162,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export GAMEMODERUNEXEC="env __NV_PRIME_RENDER_OFFLOAD=1 env __GLX_VENDOR_LIBRARY_NAME=nvidia env __VK_LAYER_NV_optimus=NVIDIA_only"
 export PROTON_LOG_DIR="~/proton"
+export CHT_SH_LANGUAGES="rust go javascript typescript nodejs" # languages to use for syntax highlighting in cht-sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
