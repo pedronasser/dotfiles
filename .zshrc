@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -165,3 +167,14 @@ export PROTON_LOG_DIR="~/proton"
 export CHT_SH_LANGUAGES="rust go javascript typescript nodejs" # languages to use for syntax highlighting in cht-sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.gvm/scripts/gvm ] && source ~/.gvm/scripts/gvm
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+
+# bun completions
+[ -s "/Users/pedronasser/.bun/_bun" ] && source "/Users/pedronasser/.bun/_bun"
+
+# Bun
+export BUN_INSTALL="/Users/pedronasser/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

@@ -14,47 +14,61 @@ set clipboard=unnamedplus
 set cursorline
 set mouse=a
 set noshowmode
-set signcolumn=yes
 set foldmethod=indent
 set nofoldenable
 set encoding=UTF-8
+set langmap=§k
 set splitbelow splitright
 set hidden
 set completeopt=menuone,noinsert,noselect
 " Avoid showing extra messages when using completion
 set shortmess+=c
+set scroll=1
+set signcolumn=yes
 
 " specify directory for plugins
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'folke/which-key.nvim'
+"Plug 'folke/which-key.nvim'
 
 " Toggle comments
 Plug 'preservim/nerdcommenter'
 
 " Collection of common configurations for the Nvim LSP client
-Plug 'rust-lang/rust.vim'
+"Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
 
-" Code completion
-Plug 'hrsh7th/nvim-cmp'
+" Format text
+Plug 'sbdchd/neoformat'
 
-" LSP completion source for nvim-cmp
-Plug 'hrsh7th/cmp-nvim-lsp'
-" Snippet completion source for nvim-cmp
-Plug 'hrsh7th/cmp-vsnip'
-
-" Other usefull completion sources
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-buffer'
+"Javascript/typescript
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'mxw/vim-jsx'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
-"Plug 'hood/popui.nvim'
+
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install --frozen-lockfile --production',
+  \ 'branch': 'release/0.x'
+  \ }
+
+" Code completion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hood/popui.nvim'
 
 " Adds extra functionality over rust analyzer
 Plug 'simrat39/rust-tools.nvim'
+
+" Snippet engine
+Plug 'hrsh7th/vim-vsnip'
 
 " Sticky header
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -78,27 +92,43 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'mfussenegger/nvim-dap'
 
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 
 " File lookup
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
+" OneDark theme
 Plug 'joshdick/onedark.vim'
 
-" Javascript stuff
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
+" Auto close brackets
+Plug 'windwp/nvim-autopairs'
 
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier']
-
-Plug 'yuezk/vim-js'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'maxmellon/vim-jsx-pretty'
-
+" Indent lines
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 " initialize plugin system
 call plug#end()
+
+lua << EOF
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    show_current_context_start = false,
+    space_char_blankline = "⋅",
+}
+EOF
+
+"lua << EOF
+"require("nvim-autopairs").setup {}
+"EOF
+
+"lua << EOF
+  "require("which-key").setup {
+    "-- your configuration comes here
+    "-- or leave it empty to use the default settings
+    "-- refer to the configuration section below
+  "}
+"EOF
 
 let g:rustfmt_autosave = 1
 let g:onedark_termcolors = 256
@@ -122,9 +152,13 @@ colorscheme onedark
 
 " See https://github.com/simrat39/rust-tools.nvim#configuration
 lua <<EOF
+--require("nvim-lsp-installer").setup {}
 
--- nvim_lsp object
-local nvim_lsp = require'lspconfig'
+local lspconfig = require('lspconfig')
+
+--lspconfig.tsserver.setup{}
+--lspconfig.gopls.setup{}
+--lspconfig.vimls.setup{}
 
 local opts = {
     tools = {
@@ -136,7 +170,7 @@ local opts = {
         },
         inlay_hints = {
             only_current_line = false,
-            show_parameter_hints = true,
+            show_parameter_hints = false,
             parameter_hints_prefix = "",
             other_hints_prefix = "",
         },
@@ -149,11 +183,24 @@ local opts = {
                     command = "clippy"
                 },
                 inlayHints = {
+                    enable = true,
+                    useParameterNames = true,
                     parameterHints = true,
                     typeHints = true,
-                }
-            }
-        }
+                },
+                assist = {
+                  importEnforceGranularity = true,
+                  importPrefix = "crate"
+                },
+                cargo = {
+                  allFeatures = true
+                },
+                checkOnSave = {
+                  -- default: `cargo check`
+                  command = "clippy"
+                },
+            },
+        },        
     }
 }
 require('rust-tools').setup(opts)
@@ -164,23 +211,23 @@ EOF
 lua <<EOF
 local cmp = require'cmp'
 cmp.setup({
-  -- Enable LSP snippets
   snippet = {
     expand = function(args)
         vim.fn["vsnip#anonymous"](args.body)
     end,
   },
+
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
     -- Add tab support
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<Up>'] = cmp.mapping.select_prev_item(),
+    ['<Down>'] = cmp.mapping.select_next_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
+    ['<Tab>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     })
@@ -258,9 +305,11 @@ map gm :call SynStack()<CR>
 
 let g:airline_theme='onedark'
 
-
 let g:airline_powerline_fonts = 1
 let g:airline_extensions = ['branch']
+
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_config_present = 1
 
 let g:clap_disable_run_rooter = v:true
 
@@ -285,11 +334,23 @@ let &t_8f = "\e[38;2;%lu;%lu;%lum"
 let &t_8b = "\e[48;2;%lu;%lu;%lum"
 
 "autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
-autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
+"autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
 
 highlight CopilotSuggestion guifg=#555555 ctermfg=8
 
 imap <silent><script><expr> <C-I> copilot#Accept("\<CR>")
+
+let g:copilot_filetypes = {
+      \ '*': v:false,
+      \ 'javascript': v:true,
+      \ 'typescript': v:true,
+      \ 'lua': v:true,
+      \ 'go': v:true,
+      \ }
 
 let g:copilot_no_tab_map = v:true
 
