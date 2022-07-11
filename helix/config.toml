@@ -1,0 +1,83 @@
+theme = "onedark"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "block"
+
+[keys.insert]
+A-w = ":buffer-close!"
+C-s = ":w"
+C-a = "select_all"
+C-z = "undo"
+C-y = "redo"
+C-p = "file_picker"
+C-S-p = "command_palette"
+A-p = "command_palette"
+C-v = "paste_clipboard_before"
+C-l = ["goto_line_start", "select_mode", "goto_line_end"]
+C-k = "toggle_comments"
+C-c = "no_op"
+"S-up" = ["select_mode", "extend_line_up"]
+"S-down" = ["select_mode", "extend_line_up"]
+"S-left" = ["select_mode", "extend_char_left"]
+"S-right" = ["select_mode", "extend_char_right"]
+"C-S-left" = ["select_mode", "extend_prev_word_start"]
+"C-S-right" = ["select_mode", "extend_next_word_end"]
+"S-home" = ["select_mode", "extend_to_line_start"]
+"S-end" = ["select_mode", "extend_to_line_end"]
+"C-home" = ["goto_file_start"]
+"C-end" = ["goto_file_end"]
+
+[keys.normal]
+A-w = ":buffer-close"
+C-s = ":w"
+C-a = "select_all"
+C-z = "undo"
+C-y = "redo"
+C-p = "file_picker"
+C-S-p = "command_palette"
+A-p = "command_palette"
+C-v = "paste_clipboard_before"
+C-l = ["extend_to_line_bounds"]
+C-k = "toggle_comments"
+
+"tab" = "indent"
+"S-tab" = "unindent"
+"S-up" = ["select_mode", "extend_line_up"]
+"S-down" = ["select_mode", "extend_line_up"]
+"S-left" = ["select_mode", "extend_char_left"]
+"S-right" = ["select_mode", "extend_char_right"]
+"C-S-left" = ["select_mode", "extend_prev_word_start"]
+"C-S-right" = ["select_mode", "extend_next_word_end"]
+"C-S-down" = ["extend_to_line_bounds"]
+"S-home" = ["select_mode", "extend_to_line_start"]
+"S-end" = ["select_mode", "extend_to_line_end"]
+"C-home" = ["goto_file_start"]
+"C-end" = ["goto_file_end"]
+
+l = ["extend_to_line_bounds"]
+x = "no_op"
+C-c = "yank_main_selection_to_clipboard"
+C-x = ["yank_main_selection_to_clipboard", "delete_selection"]
+
+"backspace" = "delete_selection_noyank"
+"del" = "delete_selection_noyank"
+d = ["shrink_selection"]
+
+[keys.select]
+"backspace" = "delete_selection_noyank"
+"del" = "delete_selection_noyank"
+x = "no_op"
+C-c = "yank"
+C-x = "delete_selection"
+
+"S-up" = ["extend_line_up"]
+"S-down" = ["extend_line_down"]
+"S-left" = ["extend_char_left"]
+"S-right" = ["extend_char_right"]
+"C-S-left" = ["extend_prev_word_start"]
+"C-S-right" = ["extend_next_word_end"]
+"S-home" = ["extend_to_line_start"]
+"S-end" = ["extend_to_line_end"]
+

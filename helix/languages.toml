@@ -1,0 +1,11 @@
+[[language]]
+name = "rust"
+auto-format = true
+
+[[language]]
+name = "go"
+auto-format = true
+
+[[language]]
+name = "typescript"
+auto-format = true
