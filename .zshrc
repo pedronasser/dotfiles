@@ -151,7 +151,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="nvim"
+alias vim="hx"
 alias code="kitty --detach --session ~/dotfiles/kitty-session-neovim.conf"
  
 export PATH=$PATH:~/.local/bin
@@ -178,3 +178,7 @@ export CHT_SH_LANGUAGES="rust go javascript typescript nodejs" # languages to us
 # Bun
 export BUN_INSTALL="/Users/pedronasser/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+export DISPLAY=:0
+
+[ -z ${WSLENV+x} ] || export PATH="${PATH:+"$PATH:"}$HOME/bin/win-bash-xclip-xsel"

@@ -28,6 +28,8 @@ C-c = "no_op"
 "S-end" = ["select_mode", "extend_to_line_end"]
 "C-home" = ["goto_file_start"]
 "C-end" = ["goto_file_end"]
+"A-up" = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "move_line_up", "goto_line_start", "paste_clipboard_before", "insert_newline", "move_line_up"]
+"A-down" = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "goto_line_end_newline", "insert_newline", "paste_clipboard_before"]
 
 [keys.normal]
 A-w = ":buffer-close"
@@ -45,12 +47,14 @@ C-k = "toggle_comments"
 "tab" = "indent"
 "S-tab" = "unindent"
 "S-up" = ["select_mode", "extend_line_up"]
-"S-down" = ["select_mode", "extend_line_up"]
+"S-down" = ["select_mode", "extend_line_down"]
 "S-left" = ["select_mode", "extend_char_left"]
 "S-right" = ["select_mode", "extend_char_right"]
 "C-S-left" = ["select_mode", "extend_prev_word_start"]
 "C-S-right" = ["select_mode", "extend_next_word_end"]
-"C-S-down" = ["extend_to_line_bounds"]
+"A-up" = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "move_line_up", "goto_line_start", "paste_clipboard_before", "insert_newline", "move_line_up"]
+"A-down" = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "goto_line_end_newline", "insert_newline", "paste_clipboard_before"]
+#, "move_line_down", "", "paste_clipboard_before"]
 "S-home" = ["select_mode", "extend_to_line_start"]
 "S-end" = ["select_mode", "extend_to_line_end"]
 "C-home" = ["goto_file_start"]
@@ -72,6 +76,8 @@ x = "no_op"
 C-c = "yank"
 C-x = "delete_selection"
 
+"A-up" = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "move_line_up", "goto_line_start", "paste_clipboard_before", "insert_newline", "move_line_up"]
+"A-down" = ["extend_to_line_bounds", "yank_main_selection_to_clipboard", "delete_selection", "goto_line_end_newline", "insert_newline", "paste_clipboard_before"]
 "S-up" = ["extend_line_up"]
 "S-down" = ["extend_line_down"]
 "S-left" = ["extend_char_left"]
