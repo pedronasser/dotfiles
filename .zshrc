@@ -151,7 +151,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="hx"
+alias vim="nvim"
 alias code="kitty --detach --session ~/dotfiles/kitty-session-neovim.conf"
  
 export PATH=$PATH:~/.local/bin

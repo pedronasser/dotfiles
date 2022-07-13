@@ -25,6 +25,7 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set scroll=1
 set signcolumn=yes
+set noswapfile
 
 " specify directory for plugins
 call plug#begin('~/.config/nvim/plugged')
@@ -337,7 +338,7 @@ let &t_8b = "\e[48;2;%lu;%lu;%lum"
 "autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
 augroup fmt
   autocmd!
-  autocmd BufWritePre * undojoin | Neoformat
+  autocmd BufWritePre * silent! undojoin | Neoformat
 augroup END
 
 highlight CopilotSuggestion guifg=#555555 ctermfg=8

@@ -35,6 +35,9 @@ noremap <silent>   <C-S-d> <cmd>Telescope diagnostics<cr>
 noremap <silent>   <A-Space> <cmd>Telescope buffers<cr>
 noremap <silent>   <C-t> <cmd>Telescope oldfiles<cr>
 
+" Select current line
+noremap <silent>   <C-l> V
+
 " Reload vim configuration
 noremap <silent>   <C-A-r> <cmd>source $MYVIMRC<cr>
 
