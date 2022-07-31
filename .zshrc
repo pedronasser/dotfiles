@@ -1,10 +1,14 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+#stty -ixon
+setopt ignoreeof
 export ZSH="$HOME/.oh-my-zsh"
+
+bindkey -r "^[/"
+bindkey -r "^D"
+bindkey -r "^A"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -151,9 +155,9 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias e="codium"
 alias vim="nvim"
-alias code="kitty --detach --session ~/dotfiles/kitty-session-neovim.conf"
- 
+  
 export PATH=$PATH:~/.local/bin
 
 [[ -s "/home/pedronasser/.gvm/scripts/gvm" ]] && source "/home/pedronasser/.gvm/scripts/gvm"
@@ -168,9 +172,6 @@ export CHT_SH_LANGUAGES="rust go javascript typescript nodejs" # languages to us
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.gvm/scripts/gvm ] && source ~/.gvm/scripts/gvm
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
 
 # bun completions
 [ -s "/Users/pedronasser/.bun/_bun" ] && source "/Users/pedronasser/.bun/_bun"
