@@ -1,48 +1,58 @@
 lua << EOF
 local lspconfig = require('lspconfig')
 
+--nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
+--nnoremap gpt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
+--nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
+--nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
+-- " Only set if you have telescope installed
+-- nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
+
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+local bufopts = { noremap=true, silent=true, buffer=bufnr }
+vim.keymap.set('n', '<space>t', require('goto-preview').goto_preview_type_definition, bufopts)
+vim.keymap.set('n', '<space>d', require('goto-preview').goto_preview_definition, bufopts)
+vim.keymap.set('n', '<space>l', vim.lsp.buf.hover, bufopts)
+vim.keymap.set('n', '<space>i', require('goto-preview').goto_preview_implementation, bufopts)
+vim.keymap.set('n', '<space>s', vim.lsp.buf.signature_help, bufopts)
+vim.keymap.set('n', '<space>x', require('goto-preview').close_all_win, bufopts)
+--vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+--vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+--vim.keymap.set('n', '<space>wl', function()
+--  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+--end, bufopts)
+--vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+vim.keymap.set('n', '<space>r', vim.lsp.buf.rename, bufopts)
+vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
+vim.keymap.set('n', '<space>r', require('goto-preview').goto_preview_references, bufopts)
+--vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+
+vim.api.nvim_create_autocmd("CursorHold", {
+  buffer = bufnr,
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = 'rounded',
+      source = 'always',
+      prefix = ' ',
+      scope = 'cursor',
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end
+})
+
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local lsp_on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<space>d', vim.lsp.buf.signature_help, bufopts)
-  --vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  --vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  --vim.keymap.set('n', '<space>wl', function()
-  --  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  --end, bufopts)
-  --vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>r', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
---vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-
-  vim.api.nvim_create_autocmd("CursorHold", {
-    buffer = bufnr,
-    callback = function()
-      local opts = {
-        focusable = false,
-        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        border = 'rounded',
-        source = 'always',
-        prefix = ' ',
-        scope = 'cursor',
-      }
-      vim.diagnostic.open_float(nil, opts)
-    end
-  })
 
 end
 
@@ -88,7 +98,7 @@ lspconfig.rust_analyzer.setup{
 
 vim.diagnostic.config({
   underline = false,
-  update_in_insert = true,
+  update_in_insert = false,
   --virtual_text = {
   --  prefix = '●', -- Could be '●', '▎', 'x'
   --  spacing = 2,
@@ -97,40 +107,6 @@ vim.diagnostic.config({
   virtual_text = false,
   float = true
 })
-
-local function goto_definition(split_cmd)
-  local util = vim.lsp.util
-  local log = require("vim.lsp.log")
-  local api = vim.api
-
-  -- note, this handler style is for neovim 0.5.1/0.6, if on 0.5, call with function(_, method, result)
-  local handler = function(_, result, ctx)
-    if result == nil or vim.tbl_isempty(result) then
-      local _ = log.info() and log.info(ctx.method, "No location found")
-      return nil
-    end
-
-    if split_cmd then
-      vim.cmd(split_cmd)
-    end
-
-    if vim.tbl_islist(result) then
-      util.jump_to_location(result[1])
-
-      if #result > 1 then
-        util.set_qflist(util.locations_to_items(result))
-        api.nvim_command("copen")
-        api.nvim_command("wincmd p")
-      end
-    else
-      util.jump_to_location(result)
-    end
-  end
-
-  return handler
-end
-
-vim.lsp.handlers["textDocument/definition"] = goto_definition('split')
 
 local M = {}
 

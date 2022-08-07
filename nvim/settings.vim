@@ -1,6 +1,6 @@
 set showmatch               " show matching brackets.
 set ignorecase              " case insensitive matching
-set hlsearch                " highlight search results
+set nohlsearch
 set selection=inclusive
 "set autoindent              " indent a new line the same amount as the line just typed
 set noautoindent

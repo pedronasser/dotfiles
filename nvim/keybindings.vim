@@ -29,8 +29,6 @@ noremap <silent>   <C-S-p> <cmd>Telescope command_palette<cr>
 noremap <silent>   <D-p> <cmd>Telescope find_files<cr>
 noremap <silent>   <C-p> <cmd>Telescope find_files<cr>
 noremap <silent>   <C-S-s> <cmd>Telescope lsp_document_symbols<cr>
-noremap <silent>   <C-f> <cmd>Telescope current_buffer_fuzzy_find<cr>
-noremap <silent>   <D-f> <cmd>Telescope current_buffer_fuzzy_find<cr>
 noremap <silent>   / <cmd>Telescope current_buffer_fuzzy_find<cr>
 noremap <silent>   <C-S-f> <cmd>Telescope live_grep<cr>
 noremap <silent>   <C-S-d> <cmd>Telescope diagnostics<cr>
@@ -115,32 +113,18 @@ imap <C-v> <C-r><C-o>+
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
-<
-nnoremap <silent> <Space> <cmd>lua vim.lsp.buf.hover()<CR>
-
-" LSP related keybindings
-nnoremap <silent> <C-Enter>    <cmd>lua vim.lsp.buf.code_action()<CR>
-nnoremap <silent> <D-Enter>    <cmd>lua vim.lsp.buf.code_action()<CR>
-
-" LSP goto actions
-
-nnoremap <silent> gi   <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gd   <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gt   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr   <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> ge   <cmd>lua vim.diagnostic.goto_next()<CR>
-
-nnoremap <silent> rr vim.lsp.buf.rename
 
 " CTRL+S to Save
-noremap <C-S>          :update<CR>
-vnoremap <C-S>         <C-C>:update<CR>
-inoremap <C-S>         <C-O>:update<CR>
+noremap <silent> <C-S>          :update<CR>
+vnoremap <silent> <C-S>         <C-C>:update<CR>
+inoremap <silent> <C-S>         <C-O>:update<CR>
+
+noremap <silent>   <C-f> <cmd>silent! Neoformat<cr>
 
 " Close vim
-noremap <C-Q>          :q<CR>
-vnoremap <C-Q>         <C-C>:q<CR>
-inoremap <C-Q>         <C-O>:q<CR>
+noremap <C-Q>          :exit<CR>
+vnoremap <C-Q>         <C-C>:exit<CR>
+inoremap <C-Q>         <C-O>:exit<CR>
 
 " Undo/redo keybindings
 nnoremap <C-Z> u
@@ -154,9 +138,9 @@ map <C-G> <ESC>:
 map <D-G> <ESC>:
 
 "Toggle comments
-nmap <C-K>   <Plug>NERDCommenterToggle
-vmap <C-K>   <Plug>NERDCommenterToggle<CR>gv
-imap <C-K>   <Esc><Plug>NERDCommenterToggle<CR>i
+"nmap <C-K>   <Plug>NERDCommenterToggle
+"vmap <C-K>   <Plug>NERDCommenterToggle<CR>gv
+"imap <C-K>   <Esc><Plug>NERDCommenterToggle<CR>i
 
 map <C-A-J> <cmd>TroubleToggle<cr>
 map <D-A-J> <cmd>TroubleToggle<cr>
@@ -169,6 +153,3 @@ nnoremap <ESC>f i<S-Right>
 
 imap <C-Right> <Esc>$a
 imap <C-Left> <Esc>0
-
-" Nops
-noremap <Tab> <Nop>

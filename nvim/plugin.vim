@@ -1,19 +1,32 @@
-" specify directory for plugins
+
 call plug#begin('~/.config/nvim/plugged')
+
+Plug 'rcarriga/nvim-notify'
+Plug 'karb94/neoscroll.nvim'
+Plug 'glepnir/dashboard-nvim'
+Plug 'mortepau/codicons.nvim'
+Plug 'onsails/lspkind.nvim'
+Plug 'rmagatti/goto-preview'
+
+" TODO: Install https://git.sr.ht/~whynothugo/lsp_lines.nvim
 
 " Cht.sh
 Plug 'RishabhRD/popfix'
 Plug 'pedronasser/nvim-cheat.sh'
 
-"Plug 'folke/which-key.nvim'
+Plug 'folke/which-key.nvim'
 Plug 'kdheepak/lazygit.nvim'
 
 " Toggle comments
-Plug 'preservim/nerdcommenter'
+"Plug 'preservim/nerdcommenter'
+Plug 'numToStr/Comment.nvim'
 
 " Collection of common configurations for the Nvim LSP client
 "Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
+
+" LSP Signature tooltip
+"Plug 'ray-x/lsp_signature.nvim'
 
 " Shows lsp status
 Plug 'j-hui/fidget.nvim'
@@ -39,7 +52,8 @@ Plug 'prettier/vim-prettier', {
 "" Code completion
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+"Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hood/popui.nvim'
@@ -51,8 +65,8 @@ Plug 'hood/popui.nvim'
 Plug 'hrsh7th/vim-vsnip'
 
 " Sticky header
-"Plug 'nvim-treesitter/nvim-treesitter'
-"Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 
 " Show warnings and errors on the bottom
 Plug 'folke/trouble.nvim'
@@ -73,6 +87,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'mfussenegger/nvim-dap'
 
 Plug 'itchyny/lightline.vim'
+"Plug 'feline-nvim/feline.nvim'
 
 " File lookup
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -89,6 +104,7 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Custom Snippets
 Plug 'sirver/UltiSnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " initialize plugin system
 call plug#end()

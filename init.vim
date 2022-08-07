@@ -7,6 +7,15 @@ source ~/dotfiles/nvim/settings.vim
 " PLUGINS
 """"""""""""""""""""""""""""""
 
+let g:dashboard_custom_header = [
+\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+\]
+
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:prettier#autoformat = 1
@@ -46,10 +55,81 @@ source ~/dotfiles/nvim/telescope.vim
 source ~/dotfiles/nvim/lsp.vim
 
 lua << EOF
+require('goto-preview').setup {
+  opacity = 10,
+}
 
+local db = require('dashboard')
+db.custom_header = vim.g.dashboard_custom_header
 
-require"fidget".setup{}
+db.custom_center = {
+  {
+    icon = '  ',
+    desc = 'New file                                ',
+    action ='DashboardNewFile'
+  },
+  {
+    icon = '  ',
+    desc = 'Recently latest session                 ',
+    action ='SessionLoad'
+  },
+  {
+    icon = '  ',
+    desc = 'Recently opened files                   ',
+    action =  'DashboardFindHistory',
+  },
+  {
+    icon = '  ',
+    desc = 'Find  File                              ',
+    action = 'Telescope find_files find_command=rg,--hidden,--files',
+  },
+  {
+    icon = '  ',
+    desc ='File Browser                            ',
+    action =  'Telescope file_browser',
+  },
+  {
+    icon = '  ',
+    desc = 'Find  word                              ',
+    action = 'Telescope live_grep',
+  },
+}
 
+local codicons = require('codicons')
+codicons.setup{}
+
+require('Comment').setup({
+  toggler = {
+    ---Line-comment toggle keymap
+    line = 'cl',
+    ---Block-comment toggle keymap
+    block = 'cb',
+  },
+
+    ---LHS of operator-pending mappings in NORMAL + VISUAL mode
+    ---@type table
+  opleader = {
+    ---Line-comment keymap
+    line = 'cl',
+    ---Block-comment keymap
+    block = 'cb',
+  }
+})
+
+--require('feline').setup()
+require('notify').setup{
+  render = "minimal",
+  minimum_width = 40,
+  level = 1
+}
+require('neoscroll').setup{}
+require("fidget").setup{} -- TODO: improve this configuration
+--require("lsp_signature").setup({
+--  bind = true, -- This is mandatory, otherwise border config won't get registered.
+--  handler_opts = {
+--    border = "rounded"
+--  }
+--}) -- TODO: improve this configuration
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -77,7 +157,7 @@ vim.opt.listchars = { space = '⋅', tab = '  ' }
 --IndentBlanklineContextChar
 require("indent_blankline").setup {
 -- for example, context is off by default, use this to turn it on
-show_current_context = true,
+  show_current_context = true,
   show_current_context_start = false,
   show_end_of_line = false,
   space_char_blankline = " ",
@@ -86,6 +166,10 @@ show_current_context = true,
 require("nvim-autopairs").setup {}
 
 local cmp = require'cmp'
+local lspkind = require('lspkind')
+
+lspkind.init({ preset = 'codicons' })
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -93,10 +177,18 @@ cmp.setup({
     end,
   },
 
+  formatting = {
+    fields = { "kind", "abbr" },
+    format = lspkind.cmp_format({
+      mode = 'symbol',
+      maxwidth = 50,
+    }),
+  },
+
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
-    -- Add tab support
+  -- Add tab support
     ['<Up>'] = cmp.mapping.select_prev_item(),
     ['<Down>'] = cmp.mapping.select_next_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -110,18 +202,49 @@ cmp.setup({
   },
 
   -- Installed sources
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
+    { name = 'ultisnips' },
     { name = 'vsnip' },
-    { name = 'path' },
-    { name = 'buffer' },
-  },
+  	{ name = "path" },
+  }, {
+		{ name = "buffer", keyword_length = 3 },
+	}),
 })
+
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig')['rust_analyzer'].setup {
+  capabilities = capabilities
+}
+require('lspconfig')['tsserver'].setup {
+  capabilities = capabilities
+}
 
 require("trouble").setup {
   position = "bottom",
   mode = "document_diagnostics",
   auto_open = true,
+  auto_close = true,
+  auto_preview = false,
   group = false,
   padding = false,
   indent_lines = true,
@@ -134,6 +257,22 @@ require("trouble").setup {
 
 EOF
 
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+" blue
+highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+" light blue
+highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+" pink
+highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+" front
+highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
 "set updatetime=300
@@ -144,12 +283,13 @@ let g:lightline = {
 \ 'colorscheme': 'onedark',
   \ }
 
-"function! LightlineReadonly()
-  "return &readonly && &filetype !~# '\v(help|vimfiler|unite)' ? 'RO' : ''
-"endfunction
+function! LightlineReadonly()
+  return &readonly && &filetype !~# '\v(help|vimfiler|unite)' ? 'RO' : ''
+endfunction
 
 "au BufEnter,BufWinEnter,WinEnter,CmdwinEnter * if bufname('%') == "Trouble" | set laststatus=0 | else | set laststatus=2 | endif
-set laststatus=200
+
+set laststatus=2
 set statusline=%t " tail of the filename
 set statusline+=%m " modified flag
 set statusline+=\ [%{strlen(&fenc)?&fenc.',':''} " file encoding
@@ -170,10 +310,10 @@ end
 
 "autocmd BufWritePre * lua vim.lsp.buf.formatting_seq_sync()
 "autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * silent! undojoin | silent! Neoformat
-augroup END
+" augroup fmt
+"   autocmd!
+"   autocmd BufWritePre * silent! undojoin | silent! Neoformat
+" augroup END
 
 highlight CopilotSuggestion guifg=#555555 ctermfg=8
 
@@ -242,19 +382,21 @@ EOF
 " AUTOCMDS
 """"""""""""""""""""""""""""""
 
+autocmd BufEnter * stopinsert
+
 "autocmd BufEnter * lua require'trouble'.refresh() end
 lua << EOF
 local mytrouble = vim.api.nvim_create_augroup("my_trouble", { clear = true })
 local t = require('trouble')
 
 function handle_trouble()
-  t.refresh()
+  vim.cmd("silent! TroubleRefresh") 
 end
 
 vim.api.nvim_create_autocmd("BufEnter", {
   group = "my_trouble",
   pattern = "*",
-  callback = handle_trouble,
+  callback = handle_trouble
 })
 EOF
 
