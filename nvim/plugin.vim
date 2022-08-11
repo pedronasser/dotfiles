@@ -6,7 +6,6 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'mortepau/codicons.nvim'
 Plug 'onsails/lspkind.nvim'
-Plug 'rmagatti/goto-preview'
 
 " TODO: Install https://git.sr.ht/~whynothugo/lsp_lines.nvim
 

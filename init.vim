@@ -55,9 +55,6 @@ source ~/dotfiles/nvim/telescope.vim
 source ~/dotfiles/nvim/lsp.vim
 
 lua << EOF
-require('goto-preview').setup {
-  opacity = 10,
-}
 
 local db = require('dashboard')
 db.custom_header = vim.g.dashboard_custom_header
