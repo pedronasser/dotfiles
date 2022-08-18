@@ -1,5 +1,6 @@
 " Hotkey to open the file explorer
 noremap <C-B> :NvimTreeToggle<cr>
+inoremap <C-B> :NvimTreeToggle<cr>
 noremap <C-O> :NvimTreeFocus<cr>
 noremap <C-L> :call setqflist([])<cr>
 
@@ -110,8 +111,10 @@ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
-vmap <Tab> >gv
-vmap <S-Tab> <gv
+nnoremap <Tab> 0V$>
+nnoremap <S-Tab> 0V$<
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 
 
 " CTRL+S to Save
@@ -130,6 +133,9 @@ inoremap <C-Q>         <C-O>:exit<CR>
 nnoremap <C-Z> u
 nnoremap <C-S-Z> <C-R>
 nnoremap <C-Y> <C-R>
+vnoremap <C-Z> <ESC>u
+vnoremap <C-S-Z> <ESC>:q<C-R>
+vnoremap <C-Y> <ESC><C-R>
 inoremap <C-Z> <C-O>u
 inoremap <C-S-Z> <C-O><C-R>
 inoremap <C-Y> <C-O><C-R>
