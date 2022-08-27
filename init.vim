@@ -128,28 +128,63 @@ require("fidget").setup{} -- TODO: improve this configuration
 --  }
 --}) -- TODO: improve this configuration
 require("nvim-tree").setup({
+  auto_reload_on_write = true,
+  reload_on_bufenter = true,
+  respect_buf_cwd = true,
   sort_by = "case_sensitive",
   view = {
-    adaptive_size = true,
+    hide_root_folder = false,
+    adaptive_size = false,
+    signcolumn = "yes",
+    width = 30,
     mappings = {
       list = {
         { key = "u", action = "dir_up" },
       },
     },
   },
+  git = {
+    ignore = false,
+  },
   renderer = {
+    root_folder_modifier = ":t",
     group_empty = true,
+    icons = {
+      show = {
+        git = true,
+        folder = true,
+        file = true,
+        folder_arrow = true,
+      },
+      glyphs = {
+        default = "",
+        symlink = "",
+        git = {
+          unstaged = "",
+          staged = "S",
+          unmerged = "",
+          renamed = "➜",
+          deleted = "",
+          untracked = "U",
+          ignored = "◌",
+        },
+      },
+      git_placement = "after"
+    }
   },
-  filters = {
-    dotfiles = true,
+  update_focused_file = {
+    enable = true
   },
+  diagnostics = {
+    enable = true
+  }
 })
 
 vim.opt.termguicolors = true
 vim.cmd [[highlight IndentBlanklineSpaceChar guifg=#343537 gui=nocombine]]
 
 vim.opt.list = true
-vim.opt.listchars = { space = '⋅', tab = '  ' }
+vim.opt.listchars = { space = ' ', tab = '  ' }
 
 --IndentBlanklineContextChar
 require("indent_blankline").setup {
@@ -239,8 +274,8 @@ require('lspconfig')['tsserver'].setup {
 require("trouble").setup {
   position = "bottom",
   mode = "document_diagnostics",
-  auto_open = true,
-  auto_close = true,
+  auto_open = false,
+  auto_close = false,
   auto_preview = false,
   group = false,
   padding = false,
@@ -297,7 +332,9 @@ set statusline+=%= " left/right separator
 set statusline+=%c " cursor column
 set statusline+=\ %l/%L " cursor line/total lines
 set statusline+=\ %p%% " percent through file
+set foldcolumn=1
 if 0
+  set foldcolumn=0
   set statusline= laststatus=0 ruler
   set rulerformat=%l,%c
   set rulerformat+=\ %m
@@ -358,10 +395,17 @@ require('onedark').setup  {
     },
     -- Custom Highlights --
     colors = {
-      dark_grey = "#45464a"
+      dark_grey = "#45464a",
+      bgcolumn = "#262931",
     }, -- Override default colors
     highlights = {
-      Whitespace = {fg = "$dark_grey" }
+      NvimTreeVertSplit = {fg = "$bgcolumn", bg = "$bgcolumn"},
+      Whitespace = { fg = "$dark_grey" },
+      SignColumn = { bg = "$bgcolumn" },
+      FoldColumn = { bg = "$bgcolumn" },
+      ColorColumn = { bg = "$bgcolumn" },
+      CursorColumn = { bg = "$bgcolumn" },
+      LineNr = { bg = "$bgcolumn" }
     }, -- Override highlight groups
     -- Plugins Config --
     diagnostics = {
@@ -395,7 +439,14 @@ vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   callback = handle_trouble
 })
+
 EOF
+
+augroup kitty_mp
+    autocmd!
+    au VimLeave * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=5 margin=0
+    au VimEnter * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=0 margin=0
+augroup END
 
 """"""""""""""""""""""""""""""
 " KEYBINDINGS

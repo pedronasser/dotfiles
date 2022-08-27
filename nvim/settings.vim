@@ -30,6 +30,7 @@ set cmdheight=0
 set shortmess+=c
 set scroll=1
 set signcolumn=yes
+set foldcolumn=1
 set noswapfile
 set guifont="'Cascadia Code Cursive"
 set background=dark

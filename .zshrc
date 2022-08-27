@@ -166,6 +166,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export DENO_INSTALL="/Users/pedronasser/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 export GAMEMODERUNEXEC="env __NV_PRIME_RENDER_OFFLOAD=1 env __GLX_VENDOR_LIBRARY_NAME=nvidia env __VK_LAYER_NV_optimus=NVIDIA_only"
 export PROTON_LOG_DIR="~/proton"
 export CHT_SH_LANGUAGES="rust go javascript typescript nodejs" # languages to use for syntax highlighting in cht-sh
