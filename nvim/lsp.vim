@@ -1,4 +1,5 @@
 lua << EOF
+
 local lspconfig = require('lspconfig')
 
 --nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
@@ -29,7 +30,7 @@ vim.keymap.set('n', '<space>s', vim.lsp.buf.signature_help, bufopts)
 vim.keymap.set('n', '<space>r', vim.lsp.buf.rename, bufopts)
 vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
 vim.keymap.set('n', '<space>r', vim.lsp.buf.references, bufopts)
---vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+--vim.keymap.set('n', '<C-f>', vim.lsp.buf.formatting, bufopts)
 
 vim.api.nvim_create_autocmd("CursorHold", {
   buffer = bufnr,
@@ -92,6 +93,42 @@ lspconfig.rust_analyzer.setup{
   flags = lsp_flags,
   on_attach = lsp_on_attach,
 }
+
+
+require("null-ls").setup({
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.cmd("nnoremap <silent><buffer> <C-f> :lua vim.lsp.buf.formatting()<CR>")
+
+      -- format on save
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    end
+
+    if client.server_capabilities.documentRangeFormattingProvider then
+      vim.cmd("xnoremap <silent><buffer> <C-f> :lua vim.lsp.buf.range_formatting({})<CR>")
+    end
+  end,
+})
+
+require("prettier").setup({
+  bin = 'prettier', -- or `prettierd`
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})
+
+
 --vim.cmd [[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]]
 --vim.cmd [[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
 

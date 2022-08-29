@@ -39,6 +39,7 @@ noremap <silent>   <A-Space> <cmd>Telescope buffers<cr>
 
 " Select current line
 noremap <silent>   <C-l> <ESC>V
+inoremap <silent>   <C-l> <ESC>V
 noremap <silent>   <D-l> <ESC>V
 
 " Reload vim configuration
@@ -104,6 +105,7 @@ noremap <A-d> <ESC>Yp
 " Delete current line
 noremap <C-Delete> <ESC>dd
 noremap <D-Delete> <ESC>dd
+nnoremap <Delete> xi
 
 " Tradicional CTRL-C, CTRL-V and CTRL-X behaviors
 vmap <C-c> "+yi
@@ -122,7 +124,9 @@ noremap <silent> <C-S>          :update<CR>
 vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
 
-noremap <silent>   <C-f> <cmd>silent! Neoformat<cr>
+"remap <silent>   <C-f> <cmd>silent! Neoformat<cr>
+noremap <silent> <C-f> :lua vim.lsp.buf.format({ async = true })<CR>
+
 
 " Close vim
 noremap <C-Q>          :exit<CR>

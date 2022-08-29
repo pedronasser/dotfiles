@@ -1,6 +1,7 @@
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'ron-rs/ron.vim'
 Plug 'rcarriga/nvim-notify'
 Plug 'karb94/neoscroll.nvim'
 Plug 'glepnir/dashboard-nvim'
@@ -43,10 +44,13 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-ui-select.nvim'
 Plug 'LinArcX/telescope-command-palette.nvim'
 
-Plug 'prettier/vim-prettier', {
-    \ 'do': 'yarn install --frozen-lockfile --production',
-    \ 'branch': 'release/0.x'
-    \ }
+" Plug 'prettier/vim-prettier', {
+"     \ 'do': 'yarn install --frozen-lockfile --production',
+"     \ 'branch': 'release/0.x'
+"     \ }
+
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'MunifTanjim/prettier.nvim'
 
 "" Code completion
 Plug 'hrsh7th/nvim-cmp'
@@ -78,7 +82,7 @@ Plug 'github/copilot.vim'
 Plug 'kyazdani42/nvim-tree.lua'
 
 Plug 'kyazdani42/nvim-web-devicons'
-"Plug 'romgrk/barbar.nvim'
+Plug 'romgrk/barbar.nvim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Debugging
