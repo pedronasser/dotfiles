@@ -528,8 +528,10 @@ EOF
 
 augroup kitty_mp
     autocmd!
-    au VimLeave * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=5 margin=0
-    au VimEnter * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=0 margin=0
+    autocmd VimLeave * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=5 margin=0
+    autocmd VimLeave * :silent !kitty @ --to $KITTY_LISTEN_ON set-tab-title --match window_id:$KITTY_WINDOW_ID
+    autocmd VimEnter * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=0 margin=0
+    autocmd VimEnter * :silent !kitty @ --to $KITTY_LISTEN_ON set-tab-title --match window_id:$KITTY_WINDOW_ID NVIM
 augroup END
 
 """"""""""""""""""""""""""""""
