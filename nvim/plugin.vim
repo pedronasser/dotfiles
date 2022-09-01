@@ -10,6 +10,9 @@ Plug 'onsails/lspkind.nvim'
 
 " TODO: Install https://git.sr.ht/~whynothugo/lsp_lines.nvim
 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-context'
+
 " Cht.sh
 Plug 'RishabhRD/popfix'
 Plug 'pedronasser/nvim-cheat.sh'
