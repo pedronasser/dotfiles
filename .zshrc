@@ -155,9 +155,11 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias e="codium"
+# alias e="codium"
 alias vim="nvim"
-  
+alias e="hx"
+export EDITOR="hx"
+
 export PATH=$PATH:~/.local/bin
 
 [[ -s "/home/pedronasser/.gvm/scripts/gvm" ]] && source "/home/pedronasser/.gvm/scripts/gvm"
