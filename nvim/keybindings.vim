@@ -1,16 +1,3 @@
-" Hotkey to open the file explorer
-noremap <C-B> :NvimTreeToggle<cr>
-inoremap <C-B> :NvimTreeToggle<cr>
-noremap <C-O> :NvimTreeFocus<cr>
-noremap <C-L> :call setqflist([])<cr>
-
-" Move to previous/next
-noremap <silent>    <A-Left> :BufferPrevious<CR>
-noremap <silent>    <A-Right> :BufferNext<CR>
-" Re-order to previous/next
-noremap <silent>    <C-A-Left> :BufferMovePrevious<CR>
-noremap <silent>    <C-A-Right> :BufferMoveNext<CR>
-" Goto buffer in position...
 noremap <silent>    <A-1> :BufferGoto 1<CR>
 noremap <silent>    <A-2> :BufferGoto 2<CR>
 noremap <silent>    <A-3> :BufferGoto 3<CR>
@@ -163,3 +150,5 @@ nnoremap <ESC>f i<S-Right>
 
 imap <C-Right> <Esc>$a
 imap <C-Left> <Esc>0
+
+map q <Nop>

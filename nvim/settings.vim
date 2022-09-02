@@ -2,9 +2,10 @@ set showmatch               " show matching brackets.
 set ignorecase              " case insensitive matching
 set nohlsearch
 set selection=inclusive
-"set autoindent              " indent a new line the same amount as the line just typed
+"set autoindent              " indent a new line the same amount as the line just typed iiiiiiiiiiiiii
 set noautoindent
 set nocompatible
+set autoread
 
 set smartindent
 set nospell
@@ -25,9 +26,11 @@ set langmap=§k
 set splitbelow splitright
 set hidden
 set completeopt=menuone,noinsert
-set cmdheight=0
+  set cmdheight=0
 " Avoid showing extra messages when using completion
-set shortmess+=c
+set wrap
+set shortmess+=aFW
+set nowarn
 set scroll=1
 set signcolumn=yes
 set foldcolumn=1
@@ -40,3 +43,6 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
           \,sm:block-blinkwait175-blinkoff150-blinkon175
 let &t_8f = "\e[38;2;%lu;%lu;%lum"
 let &t_8b = "\e[48;2;%lu;%lu;%lum"
+
+set backspace=indent,eol,start
+set browsedir=current
