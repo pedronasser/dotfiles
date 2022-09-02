@@ -27,7 +27,7 @@ set hidden
 set completeopt=menuone,noinsert
 set cmdheight=0
 " Avoid showing extra messages when using completion
-set shortmess+=c
+set shortmess=a
 set scroll=1
 set signcolumn=yes
 set foldcolumn=1

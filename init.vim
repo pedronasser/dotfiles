@@ -53,6 +53,7 @@ let g:indent_blankline_char_blankline = ' '
 source ~/dotfiles/nvim/plugin.vim
 source ~/dotfiles/nvim/telescope.vim
 source ~/dotfiles/nvim/lsp.vim
+source ~/dotfiles/nvim/treesitter.vim
 
 lua << EOF
 
