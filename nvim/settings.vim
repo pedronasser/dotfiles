@@ -2,7 +2,6 @@ set showmatch               " show matching brackets.
 set ignorecase              " case insensitive matching
 set nohlsearch
 set selection=inclusive
-"set autoindent              " indent a new line the same amount as the line just typed iiiiiiiiiiiiii
 set noautoindent
 set nocompatible
 set autoread
@@ -39,6 +38,7 @@ set termguicolors
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
           \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
           \,sm:block-blinkwait175-blinkoff150-blinkon175
+set guioptions+=a
 let &t_8f = "\e[38;2;%lu;%lu;%lum"
 let &t_8b = "\e[48;2;%lu;%lu;%lum"
 

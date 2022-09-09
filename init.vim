@@ -296,8 +296,8 @@ require('lualine').setup {
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
-      statusline = {},
-      winbar = {},
+      statusline = { 'packer', 'NVimTree' },
+      winbar = { 'packer', 'NVimTree' },
     },
     ignore_focus = {},
     always_divide_middle = true,
@@ -418,73 +418,6 @@ syntax on
 colorscheme monokai_pro
 " colorscheme monokai_soda
 " colorscheme monokai_ristretto
-
-lua << EOF
-
-vim.api.nvim_create_autocmd('BufWinEnter', {
-  pattern = '*',
-  callback = function()
-    if vim.bo.filetype == 'NvimTree' then
-      require'bufferline.state'.set_offset(31, 'FileTree')
-    end
-  end
-})
-
-vim.api.nvim_create_autocmd('BufWinLeave', {
-  pattern = '*',
-  callback = function()
-    if vim.fn.expand('<afile>'):match('NvimTree') then
-      require'bufferline.state'.set_offset(0)
-    end
-  end
-})
-
-EOF
-" require('onedark').setup  {
-"     -- Main options --
-"   style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-"     transparent = false,  -- Show/hide background
-"     term_colors = true, -- Change terminal color as per the selected theme style
-"     ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-"     cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
-"     -- toggle theme style ---
-"     --toggle_style_key = '<leader>ts', -- Default keybinding to toggle
-"     --toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
-"
-"     -- Change code style ---
-"     -- Options are italic, bold, underline, none
-"     -- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
-"     code_style = {
-"       comments = 'italic',
-"       keywords = 'italic',
-"       functions = 'none',
-"       strings = 'none',
-"       variables = 'none'
-"     },
-"     -- Custom Highlights --
-"     colors = {
-"       dark_grey = "#45464a",
-"       bgcolumn = "#262931",
-"     }, -- Override default colors
-"     highlights = {
-"       NvimTreeVertSplit = {fg = "$bgcolumn", bg = "$bgcolumn"},
-"       Whitespace = { fg = "$dark_grey" },
-"       SignColumn = { bg = "$bgcolumn" },
-"       FoldColumn = { bg = "$bgcolumn" },
-"       ColorColumn = { bg = "$bgcolumn" },
-"       CursorColumn = { bg = "$bgcolumn" },
-"       LineNr = { bg = "$bgcolumn" }
-"     }, -- Override highlight groups
-"     -- Plugins Config --
-"     diagnostics = {
-"       darker = false, -- darker colors for diagnostic
-"       undercurl = true,   -- use undercurl instead of underline for diagnostics
-"       background = true,    -- use background color for virtual text
-"     },
-" }
-"
-" require('onedark').load()
-" EOF
 
 """"""""""""""""""""""""""""""
 " AUTOCMDS
