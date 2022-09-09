@@ -161,3 +161,5 @@ nnoremap <ESC>f i<S-Right>
 
 imap <C-Right> <Esc>$a
 imap <C-Left> <Esc>0
+
+map q <Nop>
