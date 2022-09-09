@@ -1,116 +1,126 @@
+lua << EOF
+vim.cmd [[packadd nvim-treesitter]]
+vim.cmd [[packadd packer.nvim]]
 
-call plug#begin('~/.config/nvim/plugged')
+return require('packer').startup(function(use)
+  use {'ron-rs/ron.vim'}
+  use {'rcarriga/nvim-notify'}
+  use {'karb94/neoscroll.nvim'}
+  use {'glepnir/dashboard-nvim'}
+  use {'mortepau/codicons.nvim'}
+  use {'onsails/lspkind.nvim'}
 
-Plug 'ron-rs/ron.vim'
-Plug 'rcarriga/nvim-notify'
-Plug 'karb94/neoscroll.nvim'
-Plug 'glepnir/dashboard-nvim'
-Plug 'mortepau/codicons.nvim'
-Plug 'onsails/lspkind.nvim'
+  -- TODO: Install https://git.sr.ht/~whynothugo/lsp_lines.nvim
+  use {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    config = function()
+      require("lsp_lines").setup()
+    end,
+  }
 
-" TODO: Install https://git.sr.ht/~whynothugo/lsp_lines.nvim
+  use {'nvim-treesitter/nvim-treesitter', cmd = 'TSUpdate'}
+  use {'nvim-treesitter/nvim-treesitter-context'}
+  use {'nvim-treesitter/playground'}
+  use {'rust-lang/rust.vim'}
 
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-context'
+  -- Cht.sh
+  use {'RishabhRD/popfix'}
+  use {'pedronasser/nvim-cheat.sh'}
 
-" Cht.sh
-Plug 'RishabhRD/popfix'
-Plug 'pedronasser/nvim-cheat.sh'
+  use {'folke/which-key.nvim'}
+  use {'kdheepak/lazygit.nvim'}
 
-Plug 'folke/which-key.nvim'
-Plug 'kdheepak/lazygit.nvim'
+  -- Toggle comments
+  --use {'preservim/nerdcommenter'}
+  use {'numToStr/Comment.nvim'}
 
-" Toggle comments
-"Plug 'preservim/nerdcommenter'
-Plug 'numToStr/Comment.nvim'
+  -- Collection of common configurations for the Nvim LSP client
+  --use {'williamboman/nvim-lsp-installer'}
+  use {'neovim/nvim-lspconfig'}
 
-" Collection of common configurations for the Nvim LSP client
-"Plug 'williamboman/nvim-lsp-installer'
-Plug 'neovim/nvim-lspconfig'
+  -- LSP Signature tooltip
+  --use {'ray-x/lsp_signature.nvim'}
 
-" LSP Signature tooltip
-"Plug 'ray-x/lsp_signature.nvim'
+  -- Shows lsp status
+  use {'j-hui/fidget.nvim'}
 
-" Shows lsp status
-Plug 'j-hui/fidget.nvim'
+  -- Format text
+  use {'sbdchd/neoformat'}
 
-" Format text
-Plug 'sbdchd/neoformat'
+  ----Javascript/typescript
+  use {'leafgarland/typescript-vim'}
+  use {'peitalin/vim-jsx-typescript'}
+  use {'mxw/vim-jsx'}
 
-""Javascript/typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'mxw/vim-jsx'
+  use {'nvim-lua/plenary.nvim'}
+  use {'nvim-telescope/telescope.nvim'}
+  use {'nvim-telescope/telescope-ui-select.nvim'}
+  use {'LinArcX/telescope-command-palette.nvim'}
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-ui-select.nvim'
-Plug 'LinArcX/telescope-command-palette.nvim'
+  -- use {'prettier/vim-prettier', {}
+  --     \ 'do': 'yarn install --frozen-lockfile --production',
+  --     \ 'branch': 'release/0.x'
+  --     \ }
 
-" Plug 'prettier/vim-prettier', {
-"     \ 'do': 'yarn install --frozen-lockfile --production',
-"     \ 'branch': 'release/0.x'
-"     \ }
+  use {'jose-elias-alvarez/null-ls.nvim'}
+  use {'MunifTanjim/prettier.nvim'}
 
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'MunifTanjim/prettier.nvim'
+  ---- Code completion
+  use {'hrsh7th/nvim-cmp'}
+  use {'hrsh7th/cmp-nvim-lsp'}
+  use {'hrsh7th/cmp-nvim-lsp-signature-help'}
+  --use {'hrsh7th/cmp-vsnip'}
+  use {'hrsh7th/cmp-path'}
+  use {'hrsh7th/cmp-buffer'}
+  use {'hood/popui.nvim'}
 
-"" Code completion
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-"Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hood/popui.nvim'
+  -- Adds extra functionality over rust analyzer
+  --use {'simrat39/rust-tools.nvim'}
 
-" Adds extra functionality over rust analyzer
-"Plug 'simrat39/rust-tools.nvim'
+  -- Snippet engine
+  use {'hrsh7th/vim-vsnip'}
 
-" Snippet engine
-Plug 'hrsh7th/vim-vsnip'
 
-" Sticky header
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/nvim-treesitter-context'
+  -- Show warnings and errors on the bottom
+  use {'folke/trouble.nvim'}
 
-" Show warnings and errors on the bottom
-Plug 'folke/trouble.nvim'
+  -- Github copilot
+  use {'github/copilot.vim'}
 
-" Github copilot
-Plug 'github/copilot.vim'
+  -- File manager
+  --use {'ms-jpq/chadtree', branch = 'chad', 'do': 'python3 -m chadtree deps'}
+  use {'kyazdani42/nvim-tree.lua'}
 
-" File manager
-"Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-Plug 'kyazdani42/nvim-tree.lua'
+  use {'kyazdani42/nvim-web-devicons'}
+  use {'romgrk/barbar.nvim'}
+  use {'tiagofumo/vim-nerdtree-syntax-highlight'}
 
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  -- Debugging
+  use {'nvim-lua/plenary.nvim'}
+  use {'mfussenegger/nvim-dap'}
 
-" Debugging
-Plug 'nvim-lua/plenary.nvim'
-Plug 'mfussenegger/nvim-dap'
+  use {'nvim-lualine/lualine.nvim'}
+  -- use {'itchyny/lightline.vim'}
+  --use {'feline-nvim/feline.nvim'}
 
-Plug 'itchyny/lightline.vim'
-"Plug 'feline-nvim/feline.nvim'
+  -- File lookup
+  use {'mg979/vim-visual-multi', branch = 'master'}
 
-" File lookup
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+  -- OneDark theme
+  -- use {'navarasu/onedark.nvim'}
+  -- use {'sainnhe/sonokai'}
+  use {'tanvirtin/monokai.nvim'}
 
-" OneDark theme
-"Plug 'joshdick/onedark.vim' Old plugin
-Plug 'navarasu/onedark.nvim'
+  -- Auto close brackets
+  use {'windwp/nvim-autopairs'}
 
-" Auto close brackets
-Plug 'windwp/nvim-autopairs'
+  -- Indent lines
+  use {'lukas-reineke/indent-blankline.nvim'}
 
-" Indent lines
-Plug 'lukas-reineke/indent-blankline.nvim'
+  -- Custom Snippets
+  use {'sirver/UltiSnips'}
+  use {'quangnguyen30192/cmp-nvim-ultisnips'}
 
-" Custom Snippets
-Plug 'sirver/UltiSnips'
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+end)
 
-" initialize plugin system
-call plug#end()
+EOF

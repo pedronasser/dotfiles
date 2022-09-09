@@ -180,8 +180,10 @@ export CHT_SH_LANGUAGES="rust go javascript typescript nodejs" # languages to us
 export BUN_INSTALL="/Users/pedronasser/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+export DISPLAY=:0
+alias pop="kitty +kitten ssh dev@pop-os.local"
+
 [ -z ${WSLENV+x} ] || export PATH="${PATH:+"$PATH:"}$HOME/bin/win-bash-xclip-xsel"
 
 export WASMTIME_HOME="$HOME/.wasmtime"
 
-export PATH="$WASMTIME_HOME/bin:$PATH"

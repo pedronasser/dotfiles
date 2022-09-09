@@ -22,10 +22,8 @@ noremap <silent>    <Space>8 :BufferGoto 8<CR>
 noremap <silent>    <Space>9 :BufferGoto 9<CR>
 noremap <silent>    <Space>10 :BufferLast<CR>
 
-
-
-
-
+" Close buffer
+noremap <silent>    <Space>w :BufferClose<CR>
 
 " Telescope keybindings
 noremap <silent>   <C-S-p> <cmd>Telescope command_palette<cr>
@@ -40,8 +38,8 @@ noremap <silent>   <D-S-d> <cmd>Telescope diagnostics<cr>
 noremap <silent>   <A-Space> <cmd>Telescope buffers<cr>
 
 " Select current line
-noremap <silent>   <C-l> <ESC>$v0
-inoremap <silent> <C-l> <ESC>$v0
+noremap <silent>   <C-l> <ESC>V
+inoremap <silent> <C-l> <ESC>V
 
 " Reload vim configuration
 noremap <silent>   <C-A-r> <cmd>source $MYVIMRC<cr>
@@ -68,7 +66,6 @@ vnoremap <C-S-Down> xp`[V`]
 " noremap <C-S-Up>  :<C-u>m-2<CR>==
 " " move current line up one line
 " noremap <D-S-Up>  :<C-u>m-2<CR>==
-
 
 " move current line down one line
 noremap <C-S-Down> :<C-u>m+<CR>==
@@ -111,6 +108,8 @@ nnoremap <bs> "_d
 map <C-a> <esc>ggVG<CR>
 map <D-a> <esc>ggVG<CR>
 
+
+
 " Duplicate the current line
 noremap <A-d> <ESC>Yp
 noremap <A-d> <ESC>Yp
@@ -121,19 +120,14 @@ noremap <D-Delete> <ESC>dd
 nnoremap <Delete> xi
 
 " Tradicional CTRL-C, CTRL-V and CTRL-X behaviors
-vmap <C-X> "0c
+vmap <C-X> "+c
+vmap <C-V> c<ESC>"+p
+imap <C-V> <C-r><C-o>+
 
-vmap <C-V> x"0pi<right>
-imap <C-V> <ESC>"0pi<right>
-
-xmap <C-C> "0y
-xmap <D-C> "0y
-vmap <C-C> "0y
-vmap <D-C> "0y
-imap <C-C> <ESC>0v$"0Y
-imap <D-C> <ESC>0v$"0Y
-
-
+map <C-C> y<ESC> 
+map <D-C> y<ESC>
+imap <C-C> <ESC>Vy<ESC>
+imap <D-C> <ESC>Vy<ESC>
 
 nnoremap <Tab> 0V$>
 nnoremap <S-Tab> 0V$<
@@ -190,5 +184,3 @@ imap <C-Left> <Esc>0
 
 
 map q <Nop>
-
-map <silent> <C-b> :NvimTreeToggle<cr>
