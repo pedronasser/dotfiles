@@ -186,5 +186,6 @@ export BUN_INSTALL="/Users/pedronasser/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export DISPLAY=:0
+alias pop="kitty +kitten ssh dev@pop-os.local"
 
 [ -z ${WSLENV+x} ] || export PATH="${PATH:+"$PATH:"}$HOME/bin/win-bash-xclip-xsel"

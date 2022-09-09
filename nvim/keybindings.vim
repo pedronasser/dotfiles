@@ -1,29 +1,29 @@
 " Hotkey to open the file explorer
-noremap <C-B> :NvimTreeToggle<cr>
-inoremap <C-B> :NvimTreeToggle<cr>
+noremap <C-B> <ESC>:NvimTreeToggle<cr>
 noremap <C-O> :NvimTreeFocus<cr>
-noremap <C-L> :call setqflist([])<cr>
+inoremap <C-b> <ESC>:NvimTreeToggle<cr> 
+" noremap <C-L> :call setqflist([])<cr>
 
 " Move to previous/next
-noremap <silent>    <A-Left> :BufferPrevious<CR>
-noremap <silent>    <A-Right> :BufferNext<CR>
+" noremap <silent>    <Space> :BufferPrevious<CR>
+noremap <silent>    <Space><Tab> :BufferNext<CR>
 " Re-order to previous/next
 noremap <silent>    <C-A-Left> :BufferMovePrevious<CR>
 noremap <silent>    <C-A-Right> :BufferMoveNext<CR>
 " Goto buffer in position...
-noremap <silent>    <A-1> :BufferGoto 1<CR>
-noremap <silent>    <A-2> :BufferGoto 2<CR>
-noremap <silent>    <A-3> :BufferGoto 3<CR>
-noremap <silent>    <A-4> :BufferGoto 4<CR>
-noremap <silent>    <A-5> :BufferGoto 5<CR>
-noremap <silent>    <A-6> :BufferGoto 6<CR>
-noremap <silent>    <A-7> :BufferGoto 7<CR>
-noremap <silent>    <A-8> :BufferGoto 8<CR>
-noremap <silent>    <A-9> :BufferGoto 9<CR>
-noremap <silent>    <A-0> :BufferLast<CR>
+noremap <silent>    <Space>1 :BufferGoto 1<CR>
+noremap <silent>    <Space>2 :BufferGoto 2<CR>
+noremap <silent>    <Space>3 :BufferGoto 3<CR>
+noremap <silent>    <Space>4 :BufferGoto 4<CR>
+noremap <silent>    <Space>5 :BufferGoto 5<CR>
+noremap <silent>    <Space>6 :BufferGoto 6<CR>
+noremap <silent>    <Space>7 :BufferGoto 7<CR>
+noremap <silent>    <Space>8 :BufferGoto 8<CR>
+noremap <silent>    <Space>9 :BufferGoto 9<CR>
+noremap <silent>    <Space>10 :BufferLast<CR>
 
 " Close buffer
-noremap <silent>    <A-w> :BufferClose<CR>
+noremap <silent>    <Space>w :BufferClose<CR>
 
 " Telescope keybindings
 noremap <silent>   <C-S-p> <cmd>Telescope command_palette<cr>
@@ -38,9 +38,7 @@ noremap <silent>   <D-S-d> <cmd>Telescope diagnostics<cr>
 noremap <silent>   <A-Space> <cmd>Telescope buffers<cr>
 
 " Select current line
-noremap <silent>   <C-l> <ESC>V
-inoremap <silent>   <C-l> <ESC>V
-noremap <silent>   <D-l> <ESC>V
+map <silent>   <C-l> <ESC>V
 
 " Reload vim configuration
 noremap <silent>   <C-A-r> <cmd>source $MYVIMRC<cr>
@@ -113,6 +111,7 @@ vmap <C-x> "+c
 vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+
 
+
 nnoremap <Tab> 0V$>
 nnoremap <S-Tab> 0V$<
 vnoremap <Tab> >gv
@@ -133,16 +132,15 @@ noremap <C-Q>          :exit<CR>
 vnoremap <C-Q>         <C-C>:exit<CR>
 inoremap <C-Q>         <C-O>:exit<CR>
 
+
 " Undo/redo keybindings
-nnoremap <C-Z> u
-nnoremap <C-S-Z> <C-R>
-nnoremap <C-Y> <C-R>
-vnoremap <C-Z> <ESC>u
-vnoremap <C-S-Z> <ESC>:q<C-R>
-vnoremap <C-Y> <ESC><C-R>
-inoremap <C-Z> <C-O>u
-inoremap <C-S-Z> <C-O><C-R>
-inoremap <C-Y> <C-O><C-R>
+" nnoremap <C-S-Z> <C-R>
+" nnoremap <C-Y> <C-R>
+noremap <C-Z> <ESC>u
+noremap <C-S-Z> <ESC><C-R>
+" inoremap <C-Z> <C-O>u
+" inoremap <C-S-Z> <C-O><C-R>
+" inoremap <C-Y> <C-O><C-R>
 
 map <C-G> <ESC>:
 map <D-G> <ESC>:

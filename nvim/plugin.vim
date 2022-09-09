@@ -1,4 +1,3 @@
-
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'ron-rs/ron.vim'
@@ -12,6 +11,7 @@ Plug 'onsails/lspkind.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'rust-lang/rust.vim'
 
 " Cht.sh
 Plug 'RishabhRD/popfix'
@@ -72,6 +72,7 @@ Plug 'hrsh7th/vim-vsnip'
 
 " Sticky header
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/playground'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 
 " Show warnings and errors on the bottom
@@ -92,15 +93,17 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'mfussenegger/nvim-dap'
 
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
+" Plug 'itchyny/lightline.vim'
 "Plug 'feline-nvim/feline.nvim'
 
 " File lookup
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 " OneDark theme
-"Plug 'joshdick/onedark.vim' Old plugin
-Plug 'navarasu/onedark.nvim'
+" Plug 'navarasu/onedark.nvim'
+" Plug 'sainnhe/sonokai'
+Plug 'tanvirtin/monokai.nvim'
 
 " Auto close brackets
 Plug 'windwp/nvim-autopairs'
@@ -114,3 +117,4 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 " initialize plugin system
 call plug#end()
+

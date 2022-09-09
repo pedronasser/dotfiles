@@ -5,6 +5,7 @@ set selection=inclusive
 "set autoindent              " indent a new line the same amount as the line just typed
 set noautoindent
 set nocompatible
+set verbose=0
 
 set smartindent
 set nospell
@@ -27,10 +28,10 @@ set hidden
 set completeopt=menuone,noinsert
 set cmdheight=0
 " Avoid showing extra messages when using completion
-set shortmess=a
+set shortmess+=aT
 set scroll=1
 set signcolumn=yes
-set foldcolumn=1
+set foldcolumn=0
 set noswapfile
 set guifont="'Cascadia Code Cursive"
 set background=dark
