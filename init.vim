@@ -54,6 +54,7 @@ source ~/dotfiles/nvim/plugin.vim
 source ~/dotfiles/nvim/telescope.vim
 source ~/dotfiles/nvim/lsp.vim
 source ~/dotfiles/nvim/treesitter.vim
+source ~/dotfiles/nvim/onedark.vim
 
 lua << EOF
 

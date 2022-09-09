@@ -112,7 +112,7 @@ vnoremap <silent> <C-S>         <C-C>:update<CR>
 inoremap <silent> <C-S>         <C-O>:update<CR>
 
 "remap <silent>   <C-f> <cmd>silent! Neoformat<cr>
-noremap <silent> <C-f> :lua vim.lsp.buf.format({ async = true })<CR>
+noremap <silent> <C-f> :lua vim.lsp.buf.formatting({ async = true })<CR>
 
 
 " Close vim
@@ -152,3 +152,5 @@ imap <C-Right> <Esc>$a
 imap <C-Left> <Esc>0
 
 map q <Nop>
+
+map <silent> <C-b> :NvimTreeToggle<cr>

@@ -26,7 +26,7 @@ set langmap=§k
 set splitbelow splitright
 set hidden
 set completeopt=menuone,noinsert
-  set cmdheight=0
+"  set cmdheight=0
 " Avoid showing extra messages when using completion
 set wrap
 set shortmess+=aFW
