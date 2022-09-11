@@ -53,7 +53,7 @@ let g:indent_blankline_char_blankline = ' '
 source ~/dotfiles/nvim/plugin.vim
 source ~/dotfiles/nvim/telescope.vim
 source ~/dotfiles/nvim/lsp.vim
-source ~/dotfiles/nvim/treesitter.vim
+" source ~/dotfiles/nvim/treesitter.vim
 source ~/dotfiles/nvim/statusline.vim
 source ~/dotfiles/nvim/cmp.vim
 
@@ -442,9 +442,7 @@ EOF
 augroup kitty_mp
     autocmd!
     autocmd VimLeave * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=5 margin=0
-    autocmd VimLeave * :silent !kitty @ --to $KITTY_LISTEN_ON set-tab-title --match window_id:$KITTY_WINDOW_ID
     autocmd VimEnter * :silent !kitty @ --to $KITTY_LISTEN_ON set-spacing --match-tab window_id:$KITTY_WINDOW_ID padding=0 margin=0
-    autocmd VimEnter * :silent !kitty @ --to $KITTY_LISTEN_ON set-tab-title --match window_id:$KITTY_WINDOW_ID NVIM
 augroup END
 
 """"""""""""""""""""""""""""""

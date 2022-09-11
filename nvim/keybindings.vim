@@ -22,6 +22,7 @@ noremap <silent>    <Space>8 :BufferGoto 8<CR>
 noremap <silent>    <Space>9 :BufferGoto 9<CR>
 noremap <silent>    <Space>10 :BufferLast<CR>
 
+noremap <silent>    <Space>w :BufferClose<CR>
 
 
 
@@ -40,7 +41,7 @@ noremap <silent>   <D-S-d> <cmd>Telescope diagnostics<cr>
 noremap <silent>   <A-Space> <cmd>Telescope buffers<cr>
 
 " Select current line
-noremap <silent>   <C-l> <ESC>$v0
+noremap  <silent> <C-l> <ESC>$v0
 inoremap <silent> <C-l> <ESC>$v0
 
 " Reload vim configuration
@@ -123,8 +124,8 @@ nnoremap <Delete> xi
 " Tradicional CTRL-C, CTRL-V and CTRL-X behaviors
 vmap <C-X> "0c
 
-vmap <C-V> x"0pi<right>
-imap <C-V> <ESC>"0pi<right>
+vmap <C-V> x"0gPi<right>
+imap <C-V> <ESC>"0gPi<right>
 
 xmap <C-C> "0y
 xmap <D-C> "0y
@@ -190,3 +191,5 @@ imap <C-Left> <Esc>0
 
 
 map q <Nop>
+
+map <silent> <C-b> :NvimTreeToggle<cr>

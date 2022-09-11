@@ -14,7 +14,7 @@ bindkey -r "^A"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -85,7 +85,7 @@ plugins=(
 SPACESHIP_USER_SHOW=false
 SPACESHIP_HOST_SHOW=false
 SPACESHIP_PROMPT_ADD_NEWLINE=false
-SPACESHIP_PROMPT_SEPARATE_LINE=false
+# SPACESHIP_PROMPT_SEPARATE_LINE=false
 SPACESHIP_RUST_SHOW=false
 SPACESHIP_DIR_TRUNC=1
 SPACESHIP_PROMPT_ORDER=(
@@ -96,8 +96,6 @@ SPACESHIP_PROMPT_ORDER=(
   git           # Git section (git_branch + git_status)
   hg            # Mercurial section (hg_branch  + hg_status)
   package       # Package version
-  gradle        # Gradle section
-  maven         # Maven section
   node          # Node.js section
   ruby          # Ruby section
   elixir        # Elixir section
@@ -113,16 +111,13 @@ SPACESHIP_PROMPT_ORDER=(
   gcloud        # Google Cloud Platform section
   venv          # virtualenv section
   conda         # conda virtualenv section
-  pyenv         # Pyenv section
   dotnet        # .NET section
-  ember         # Ember.js section
   kubectl       # Kubectl context section
   terraform     # Terraform workspace section
   ibmcloud      # IBM Cloud section
   exec_time     # Execution time
   line_sep      # Line break
   battery       # Battery level and status
-  vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
@@ -185,7 +180,11 @@ export CHT_SH_LANGUAGES="rust go javascript typescript nodejs" # languages to us
 export BUN_INSTALL="/Users/pedronasser/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export DISPLAY=:0
+# export DISPLAY=:0
 alias pop="kitty +kitten ssh dev@pop-os.local"
 
 [ -z ${WSLENV+x} ] || export PATH="${PATH:+"$PATH:"}$HOME/bin/win-bash-xclip-xsel"
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+alias dnvim="~/dotfiles/neovim.sh"
