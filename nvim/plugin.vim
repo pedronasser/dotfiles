@@ -1,8 +1,10 @@
 lua << EOF
-vim.cmd [[packadd nvim-treesitter]]
+--[[ vim.cmd [[packadd nvim-treesitter]]
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
+  use {'RRethy/nvim-base16'}
+
   use {'ron-rs/ron.vim'}
   use {'rcarriga/nvim-notify'}
   use {'karb94/neoscroll.nvim'}
@@ -19,8 +21,8 @@ return require('packer').startup(function(use)
   }
 
   use {'nvim-treesitter/nvim-treesitter', cmd = 'TSUpdate'}
-  use {'nvim-treesitter/nvim-treesitter-context'}
-  use {'nvim-treesitter/playground'}
+  --use {'nvim-treesitter/nvim-treesitter-context', disable = true}
+  -- use {'nvim-treesitter/playground', disabled = true}
   use {'rust-lang/rust.vim'}
 
   -- Cht.sh
@@ -96,7 +98,6 @@ return require('packer').startup(function(use)
   use {'tiagofumo/vim-nerdtree-syntax-highlight'}
 
   -- Debugging
-  use {'nvim-lua/plenary.nvim'}
   use {'mfussenegger/nvim-dap'}
 
   use {'nvim-lualine/lualine.nvim'}
