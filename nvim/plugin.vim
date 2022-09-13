@@ -1,5 +1,5 @@
 lua << EOF
---[[ vim.cmd [[packadd nvim-treesitter]]
+vim.cmd [[packadd nvim-treesitter]]
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)

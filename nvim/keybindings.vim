@@ -30,19 +30,18 @@ noremap <silent>    <Space>w :BufferClose<CR>
 
 " Telescope keybindings
 noremap <silent>   <C-S-p> <cmd>Telescope command_palette<cr>
-noremap <silent>   <D-p> <cmd>Telescope find_files<cr>
 noremap <silent>   <C-p> <cmd>Telescope find_files<cr>
 noremap <silent>   <C-S-s> <cmd>Telescope lsp_document_symbols<cr>
 noremap <silent>   / <cmd>Telescope current_buffer_fuzzy_find<cr>
 noremap <silent>   <C-S-f> <cmd>Telescope live_grep<cr>
 noremap <silent>   <C-S-d> <cmd>Telescope diagnostics<cr>
-noremap <silent>   <D-S-f> <cmd>Telescope live_grep<cr>
-noremap <silent>   <D-S-d> <cmd>Telescope diagnostics<cr>
 noremap <silent>   <A-Space> <cmd>Telescope buffers<cr>
 
 " Select current line
-noremap  <silent> <C-l> <ESC>$v0
-inoremap <silent> <C-l> <ESC>$v0
+nnoremap <silent> <C-l> 0vg_V
+vnoremap <silent> <C-l> og0og_V
+inoremap <silent> <C-l> <ESC>0vg_V
+
 
 " Reload vim configuration
 noremap <silent>   <C-A-r> <cmd>source $MYVIMRC<cr>
@@ -61,19 +60,13 @@ vnoremap <C-S-Up> xkP`[V`]
 vnoremap <C-S-Down> xp`[V`]
 
 " noremap <C-S-Up>     :m-2<CR>gv=gv
-" noremap <C-S-Down>   :m'>+<CR>gv=gv
-" noremap <D-S-Up>     :m-2<CR>gv=gv
-" noremap <D-S-Down>   :m'>+<CR>gv=gv
-"
+" noremap <C-S-Down>   :m'>+<CR>gv=gv"
 "
 " noremap <C-S-Up>  :<C-u>m-2<CR>==
-" " move current line up one line
-" noremap <D-S-Up>  :<C-u>m-2<CR>==
 
 
 " move current line down one line
 noremap <C-S-Down> :<C-u>m+<CR>==
-noremap <D-S-Down> :<C-u>m+<CR>==
 
 xnoremap <S-Up> <Up>
 xnoremap <S-Down> <Down>
@@ -100,8 +93,6 @@ noremap <ESC>[8~    <End>
 noremap <ESC>[7~    <Home>
 inoremap <ESC>[8~    <End>
 inoremap <ESC>[7~    <Home>
-"noremap <D-Right>    <End>
-"noremap <D-Left>    <Home>
 "imap <ESC>[8~    <End>  
 "imap <ESC>[7~    <Home>
 
@@ -110,36 +101,30 @@ vnoremap <bs> "_d
 nnoremap <bs> "_d
 
 map <C-a> <esc>ggVG<CR>
-map <D-a> <esc>ggVG<CR>
 
 " Duplicate the current line
-noremap <A-d> <ESC>Yp
-noremap <A-d> <ESC>Yp
+noremap <C-d> <ESC>Yp
+noremap <C-d> <ESC>Yp
 
 " Delete current line
 noremap <C-Delete> <ESC>dd
-noremap <D-Delete> <ESC>dd
 nnoremap <Delete> xi
 
 " Tradicional CTRL-C, CTRL-V and CTRL-X behaviors
 vmap <C-X> "0c
 
-vmap <C-V> x"0gPi<right>
-imap <C-V> <ESC>"0gPi<right>
+vmap <C-v> x"0gPi<right>
+imap <C-v> <C-R>0
 
-xmap <C-C> "0y
-xmap <D-C> "0y
-vmap <C-C> "0y
-vmap <D-C> "0y
-imap <C-C> <ESC>0v$"0Y
-imap <D-C> <ESC>0v$"0Y
-
-
-
+xnoremap <A-c> "0ygv"*y<ESC>
+vnoremap <A-c> "0ygv"*y<ESC>
+inoremap <A-c> <ESC>0vg_"0ygv"*y<ESC>
+  
 nnoremap <Tab> 0V$>
 nnoremap <S-Tab> 0V$<
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
 
 
 " CTRL+S to Save
@@ -170,7 +155,6 @@ inoremap <C-y> <ESC><C-R>i
 " inoremap <C-Y> <C-O><C-R>
 
 map <C-G> <ESC>:
-map <D-G> <ESC>:
 
 "Toggle comments
 "nmap <C-K>   <Plug>NERDCommenterToggle
@@ -178,7 +162,6 @@ map <D-G> <ESC>:
 "imap <C-K>   <Esc><Plug>NERDCommenterToggle<CR>i
 
 map <C-A-J> <cmd>TroubleToggle<cr>
-map <D-A-J> <cmd>TroubleToggle<cr>
 
 nnoremap <Backspace> i<Backspace>
 
@@ -193,3 +176,5 @@ imap <C-Left> <Esc>0
 map q <Nop>
 
 map <silent> <C-b> :NvimTreeToggle<cr>
+
+
