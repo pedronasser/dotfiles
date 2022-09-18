@@ -54,8 +54,9 @@ source ~/dotfiles/nvim/plugin.vim
 source ~/dotfiles/nvim/telescope.vim
 source ~/dotfiles/nvim/lsp.vim
 " source ~/dotfiles/nvim/treesitter.vim
-source ~/dotfiles/nvim/statusline.vim
+"source ~/dotfiles/nvim/statusline.vim
 source ~/dotfiles/nvim/cmp.vim
+source ~/dotfiles/nvim/theme.vim
 
 lua << EOF
 
@@ -196,72 +197,8 @@ require("indent_blankline").setup {
   space_char_blankline = " ",
 }
 
-require("nvim-autopairs").setup {}
+--require("nvim-autopairs").setup {}
  
-local cmp = require'cmp'
-local lspkind = require('lspkind')
-
-lspkind.init({ preset = 'codicons' })
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-
-  formatting = {
-    fields = { "kind", "abbr" },
-    format = lspkind.cmp_format({
-      mode = 'symbol',
-      maxwidth = 50,
-    }),
-  },
-
-  mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-  -- Add tab support
-    ['<Up>'] = cmp.mapping.select_prev_item(),
-    ['<Down>'] = cmp.mapping.select_next_item(),
-    ['<C-Down>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-Up>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    })
-  },
-
-  -- Installed sources
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
-    { name = 'ultisnips' },
-    { name = 'vsnip' },
-  	{ name = "path" },
-  }, {
-		{ name = "buffer", keyword_length = 3 },
-	}),
-})
-
-cmp.setup.cmdline('/', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = {
-    { name = 'buffer' }
-    }
-  })
-
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
@@ -332,21 +269,7 @@ require('lualine').setup {
 
 EOF
 
-highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-" blue
-highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
-highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
-" light blue
-highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
-highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
-highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
-" pink
-highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
-highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
-" front
-highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
-highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
-highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -415,7 +338,7 @@ highlight CopilotSuggestion guifg=#555555 ctermfg=8
 "
 syntax on
 " colorscheme monokai
-colorscheme monokai_pro
+" colorscheme monokai_pro
 " colorscheme monokai_soda
 " colorscheme monokai_ristretto
 
@@ -449,3 +372,6 @@ augroup END
 " KEYBINDINGS
 """"""""""""""""""""""""""""""
 source ~/dotfiles/nvim/keybindings.vim
+
+silent! delc Reload
+command Reload :so $MYVIMRC | lua require("notify")("Vim config reloaded!", "INFO", { title = "NEOVIM" })

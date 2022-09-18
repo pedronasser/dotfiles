@@ -47,7 +47,7 @@ return require('packer').startup(function(use)
   use {'j-hui/fidget.nvim'}
 
   -- Format text
-  use {'sbdchd/neoformat'}
+  --use {'sbdchd/neoformat'}
 
   ----Javascript/typescript
   use {'leafgarland/typescript-vim'}
@@ -87,7 +87,7 @@ return require('packer').startup(function(use)
   use {'folke/trouble.nvim'}
 
   -- Github copilot
-  use {'github/copilot.vim'}
+  --use {'github/copilot.vim'}
 
   -- File manager
   --use {'ms-jpq/chadtree', branch = 'chad', 'do': 'python3 -m chadtree deps'}
