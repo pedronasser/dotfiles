@@ -7,6 +7,7 @@ set nocompatible
 set autoread
 
 set smartindent
+set nopaste
 set nospell
 set number                  " add line numbers
 set wildmode=longest,list   " get bash-like tab completions
