@@ -1,9 +1,9 @@
 [Desktop Entry]
-Version=1.0
+Version=1.1
 Type=Application
-Name=Neovim
+Name=Neovim2
 GenericName=Neovim
 Comment=Code Editor
-Exec=/home/dev/.local/bin/kitty /home/dev/dotfiles/neovim.sh
+Exec=/home/dev/.local/bin/kitty --detach /home/dev/dotfiles/neovim.sh
 Icon=/home/dev/dotfiles/neovim.png
 
