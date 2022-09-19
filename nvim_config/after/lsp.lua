@@ -1,21 +1,40 @@
-lua << EOF
+local keymap = require("nvim_config.keymap")
+local bufnr = vim.api.nvim_get_current_buf()
+
+keymap(function(nmap, vmap, imap, map, xmap)
+  map("<C-f>", function() vim.lsp.buf.format({ async = true }) end)
+  map("<Space>f", function() vim.lsp.buf.format({ async = true }) end)
+  imap("<C-f>", function() vim.lsp.buf.format({ async = true }) end)
+end)
 
 local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
---nnoremap gpd <cmd>lua require('goto-preview').goto_preview_definition()<CR>
---nnoremap gpt <cmd>lua require('goto-preview').goto_preview_type_definition()<CR>
---nnoremap gpi <cmd>lua require('goto-preview').goto_preview_implementation()<CR>
---nnoremap gP <cmd>lua require('goto-preview').close_all_win()<CR>
--- " Only set if you have telescope installed
--- nnoremap gpr <cmd>lua require('goto-preview').goto_preview_references()<CR>
+lspconfig.sumneko_lua.setup {
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' },
+        disable = { "unused-local", "unused-function", "redefined-local" }
+      }
+    }
+  }
+}
+lspconfig['rust_analyzer'].setup {
+  capabilities = capabilities
+}
+lspconfig['tsserver'].setup {
+  capabilities = capabilities
+}
 
-local opts = { noremap=true, silent=true }
+local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-local bufopts = { noremap=true, silent=true, buffer=bufnr }
+local bufopts = { noremap = true, silent = true, buffer = bufnr }
 vim.keymap.set('n', '<space>t', vim.lsp.buf.declaration, bufopts)
 vim.keymap.set('n', '<space>d', vim.lsp.buf.definition, bufopts)
 vim.keymap.set('n', '<space>l', vim.lsp.buf.hover, bufopts)
@@ -61,16 +80,12 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-lspconfig.tsserver.setup{}
-lspconfig.gopls.setup{}
-lspconfig.vimls.setup{}
-lspconfig.rust_analyzer.setup{
+lspconfig.tsserver.setup {}
+lspconfig.gopls.setup {}
+lspconfig.vimls.setup {}
+lspconfig.rust_analyzer.setup {
   settings = {
     ["rust-analyzer"] = {
-      checkOnSave = {
-        enabled = true,
-        command = "clippy"
-      },
       inlayHints = {
         enable = true,
         useParameterNames = true,
@@ -187,4 +202,3 @@ end
 
 --vim.o.updatetime = 250
 --vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
-EOF
