@@ -11,7 +11,7 @@ vim.opt.spell = false
 vim.opt.number = true
 vim.opt.wildmode = { "longest", "list" }
 
-vim.g.mapleader = " "
+-- vim.g.mapleader = " "
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 0

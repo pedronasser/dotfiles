@@ -5,6 +5,31 @@ keymap(function(nmap, vmap, imap, map, xmap)
   map("<C-f>", function() vim.lsp.buf.format({ async = true }) end)
   map("<Space>f", function() vim.lsp.buf.format({ async = true }) end)
   imap("<C-f>", function() vim.lsp.buf.format({ async = true }) end)
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local opts = { noremap = true, silent = true }
+  nmap('<space>e', vim.diagnostic.open_float, opts)
+  nmap('[d', vim.diagnostic.goto_prev, opts)
+  nmap(']d', vim.diagnostic.goto_next, opts)
+  nmap('<space>q', vim.diagnostic.setloclist, opts)
+
+  local bufopts = { noremap = true, silent = true }
+  nmap('<space>t', vim.lsp.buf.declaration, bufopts)
+  nmap('<space>d', vim.lsp.buf.definition, bufopts)
+  nmap('<space>l', vim.lsp.buf.hover, bufopts)
+  nmap('<space>i', vim.lsp.buf.implementation, bufopts)
+  nmap('<space>s', vim.lsp.buf.signature_help, bufopts)
+  --nmap('<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  ----nmap('<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  ----nmap('<space>wl', function()
+  ----  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  ----end, bufopts)
+  ----nmap('<space>D', vim.lsp.buf.type_definition, bufopts)
+  --nmap('<space>r', vim.lsp.buf.rename, bufopts)
+  --nmap('<space>a', vim.lsp.buf.code_action, bufopts)
+  --nmap('<space>r', vim.lsp.buf.references, bufopts)
+  ----nmap('<C-f>', vim.lsp.buf.formatting, bufopts)
 end)
 
 local lspconfig = require('lspconfig')
@@ -28,51 +53,27 @@ lspconfig['tsserver'].setup {
   capabilities = capabilities
 }
 
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-local bufopts = { noremap = true, silent = true, buffer = bufnr }
-vim.keymap.set('n', '<space>t', vim.lsp.buf.declaration, bufopts)
-vim.keymap.set('n', '<space>d', vim.lsp.buf.definition, bufopts)
-vim.keymap.set('n', '<space>l', vim.lsp.buf.hover, bufopts)
-vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, bufopts)
-vim.keymap.set('n', '<space>s', vim.lsp.buf.signature_help, bufopts)
---vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
---vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
---vim.keymap.set('n', '<space>wl', function()
---  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
---end, bufopts)
---vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-vim.keymap.set('n', '<space>r', vim.lsp.buf.rename, bufopts)
-vim.keymap.set('n', '<space>a', vim.lsp.buf.code_action, bufopts)
-vim.keymap.set('n', '<space>r', vim.lsp.buf.references, bufopts)
---vim.keymap.set('n', '<C-f>', vim.lsp.buf.formatting, bufopts)
 
-vim.api.nvim_create_autocmd("CursorHold", {
-  buffer = bufnr,
-  callback = function()
-    local opts = {
-      focusable = false,
-      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-      border = 'rounded',
-      source = 'always',
-      prefix = ' ',
-      scope = 'cursor',
-    }
-    vim.diagnostic.open_float(nil, opts)
-  end
-})
 
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local lsp_on_attach = function(client, bufnr)
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-
+  vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = 'rounded',
+        source = 'always',
+        prefix = ' ',
+        scope = 'cursor',
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end
+  })
 end
 
 local lsp_flags = {
@@ -202,3 +203,4 @@ end
 
 --vim.o.updatetime = 250
 --vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+--
