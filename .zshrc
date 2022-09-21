@@ -188,3 +188,4 @@ alias pop="kitty +kitten ssh dev@pop-os.local"
 export WASMTIME_HOME="$HOME/.wasmtime"
 
 alias dnvim="~/dotfiles/neovim.sh"
+alias luamake=/home/dev/Downloads/lua-language-server/3rd/luamake/luamake

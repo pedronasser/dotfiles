@@ -17,7 +17,7 @@ require('packer').startup(function(use)
       require("lsp_lines").setup()
     end,
   }
-
+--
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
@@ -96,7 +96,7 @@ require('packer').startup(function(use)
   use { 'kyazdani42/nvim-web-devicons' }
   use { 'tiagofumo/vim-nerdtree-syntax-highlight' }
 
-  use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+  -- use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
 
   -- Debugging
   use { 'mfussenegger/nvim-dap' }

@@ -18,7 +18,6 @@ keymap(function(nmap, vmap, imap, map, xmap)
   map("<Space>8", "<cmd>BufferGoto 8")
   map("<Space>9", "<cmd>BufferGoto 9")
   map("<Space>10", "<cmd>BufferLast")
-
   map("<Space>w", "<cmd>BufferClose")
 
   -- Select current line
@@ -81,14 +80,20 @@ keymap(function(nmap, vmap, imap, map, xmap)
   nmap("<Delete>", "xi")
 
   -- Tradicional CTRL-C, CTRL-V and CTRL-X behaviors
-  vmap("<C-X>", "\"0c")
+  map("<C-X>", "\"0ygv\"*d")
 
-  vmap("<C-v>", "x\"0gPi<right>")
-  imap("<C-v>", "<C-R>0")
+  map("<C-v>", "x\"0gPi<right>")
+  imap("<C-v>", "<ESC>\"0Pi<right>")
+
+
 
   xmap("<A-c>", "\"0ygv\"*y<ESC>")
   vmap("<A-c>", "\"0ygv\"*y<ESC>")
   imap("<A-c>", "<ESC>0vg_\"0ygv\"*y<ESC>")
+
+  xmap("<C-c>", "\"0ygv\"*y<ESC>")
+  vmap("<C-c>", "\"0ygv\"*y<ESC>")
+  imap("<C-c>", "<ESC>0vg_\"0ygv\"*y<ESC>")
 
   nmap("<Tab>", "0V$>")
   nmap("<S-Tab>", "0V$<")
@@ -118,3 +123,5 @@ keymap(function(nmap, vmap, imap, map, xmap)
   map("q", "<Nop>")
 
 end)
+
+
