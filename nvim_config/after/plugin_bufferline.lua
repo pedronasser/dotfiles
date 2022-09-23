@@ -1,3 +1,9 @@
+local keymap = require("nvim_config.keymap")
+local bufnr = vim.api.nvim_get_current_buf()
+
+keymap(function(nmap, vmap, imap, map, xmap)
+end)
+
 -- local monokai = require('monokai')
 -- local palette = monokai.pro
 --

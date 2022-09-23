@@ -26,9 +26,9 @@ keymap(function(nmap, vmap, imap, map, xmap)
   ----  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   ----end, bufopts)
   ----nmap('<space>D', vim.lsp.buf.type_definition, bufopts)
-  --nmap('<space>r', vim.lsp.buf.rename, bufopts)
-  --nmap('<space>a', vim.lsp.buf.code_action, bufopts)
-  --nmap('<space>r', vim.lsp.buf.references, bufopts)
+  nmap('<space>r', vim.lsp.buf.rename, bufopts)
+  nmap('<space>a', vim.lsp.buf.code_action, bufopts)
+  nmap('<space>r', vim.lsp.buf.references, bufopts)
   ----nmap('<C-f>', vim.lsp.buf.formatting, bufopts)
 end)
 
@@ -204,3 +204,21 @@ end
 --vim.o.updatetime = 250
 --vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 --
+
+local notify = require 'notify'
+vim.lsp.handlers['window/showMessage'] = function(_, result, ctx)
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  local lvl = ({
+    'ERROR',
+    'WARN',
+    'INFO',
+    'DEBUG',
+  })[result.type]
+  notify({ result.message }, lvl, {
+    title = 'LSP | ' .. client.name,
+    timeout = 10000,
+    keep = function()
+      return lvl == 'ERROR' or lvl == 'WARN'
+    end,
+  })
+end

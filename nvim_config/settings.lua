@@ -4,14 +4,13 @@ vim.opt.selection = "inclusive"
 vim.opt.autoindent = false
 vim.opt.compatible = false
 vim.opt.autoread = true
-vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.hlsearch = false
 vim.opt.smartindent = false
 vim.opt.spell = false
 vim.opt.wildmode = { "longest", "list" }
 
--- vim.g.mapleader = " "
+vim.g.mapleader = " "
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 0
@@ -49,6 +48,6 @@ vim.opt.browsedir = "current"
 
 vim.opt.termguicolors = true
 
-vim.opt.cmdheight = 0
+vim.opt.cmdheight = 1
 
-vim.cmd[[set relativenumber nonu]]
+vim.cmd[[set relativenumber nu]]

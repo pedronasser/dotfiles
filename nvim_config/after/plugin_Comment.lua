@@ -1,3 +1,5 @@
+-- config for https://github.com/numToStr/Comment.nvim
+
 require('Comment').setup({
   toggler = {
     ---Line-comment toggle keymap

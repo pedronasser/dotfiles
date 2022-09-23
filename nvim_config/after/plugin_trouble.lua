@@ -1,5 +1,12 @@
 local mytrouble = vim.api.nvim_create_augroup("my_trouble", { clear = true })
 
+local keymap = require("nvim_config.keymap")
+local bufnr = vim.api.nvim_get_current_buf()
+
+keymap(function(nmap, vmap, imap, map, xmap)
+  map("<C-A-J>", "<cmd>TroubleToggle<cr>")
+end)
+
 local function handle_trouble()
   vim.cmd("silent! TroubleRefresh")
 end

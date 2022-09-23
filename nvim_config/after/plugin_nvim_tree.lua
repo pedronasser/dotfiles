@@ -16,9 +16,9 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     hide_root_folder = false,
-    adaptive_size = false,
+    adaptive_size = true,
     signcolumn = "yes",
-    width = 25,
+    -- width = 25,
     mappings = {
       list = {
         { key = "u", action = "dir_up" },
