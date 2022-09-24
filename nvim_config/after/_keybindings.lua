@@ -7,7 +7,7 @@ keymap(function(nmap, vmap, imap, map, xmap)
   imap("<C-Left>", "<ESC>bi")
 
   -- Select current line
-  nmap("<C-L", "0vg_V")
+  nmap("<C-L>", "0vg_V")
   vmap("<C-L>", "og0og_V")
   imap("<C-L>", "<ESC>0vg_V")
 
