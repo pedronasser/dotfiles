@@ -56,6 +56,7 @@ keymap(function(nmap, vmap, imap, map, xmap)
 
   -- Duplicate the current line
   vmap("<Space>dl", "<ESC>Yp")
+  nmap("<Space>dl", "<ESC>vYp")
 
   -- Delete current line
   map("<C-Delete>", "<ESC>dd")
