@@ -48,6 +48,6 @@ vim.opt.browsedir = "current"
 
 vim.opt.termguicolors = true
 
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 
 vim.cmd[[set relativenumber nu]]
