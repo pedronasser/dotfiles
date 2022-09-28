@@ -1,15 +1,21 @@
 local keymap = require("nvim_config.keymap")
+local nvimtree = require("nvim-tree")
+
+local function toggle()
+  local view = require("nvim-tree.view")
+  if not view.is_visible() then
+    require("dapui").close()
+  end
+
+  nvimtree.toggle()
+end
 
 keymap(function(nmap, vmap, imap, map, xmap)
-  map("<C-B>", "<ESC>:NvimTreeToggle<cr>")
-  map("<C-O>", ":NvimTreeFocus<cr>")
-
-  imap("<C-O>", ":NvimTreeFocus<cr>")
-  imap("<C-B>", "<ESC>:NvimTreeToggle<cr>")
+  map("<C-B>", toggle)
+  imap("<C-B>", toggle)
 end)
 
-
-require("nvim-tree").setup({
+nvimtree.setup({
   auto_reload_on_write = true,
   reload_on_bufenter = true,
   respect_buf_cwd = true,
@@ -30,7 +36,7 @@ require("nvim-tree").setup({
   },
   renderer = {
     root_folder_modifier = ":t",
-    group_empty = true,
+    group_empty = false,
     icons = {
       show = {
         git = true,
