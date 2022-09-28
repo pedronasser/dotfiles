@@ -85,6 +85,7 @@ require('packer').startup(function(use)
 
   -- Debugging
   use { 'mfussenegger/nvim-dap' }
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use { 'nvim-lualine/lualine.nvim' }
   use { 'mg979/vim-visual-multi', branch = 'master' }
   use { 'tanvirtin/monokai.nvim' }
