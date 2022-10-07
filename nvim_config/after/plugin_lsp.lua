@@ -35,26 +35,6 @@ end)
 local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-lspconfig.sumneko_lua.setup {
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' },
-        disable = { "unused-local", "unused-function", "redefined-local" }
-      }
-    }
-  }
-}
-lspconfig['rust_analyzer'].setup {
-  capabilities = capabilities
-}
-lspconfig['tsserver'].setup {
-  capabilities = capabilities
-}
-
-
-
 
 
 -- Use an on_attach function to only map the following keys
@@ -81,10 +61,25 @@ local lsp_flags = {
   debounce_text_changes = 150,
 }
 
-lspconfig.tsserver.setup {}
+lspconfig.sumneko_lua.setup {
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' },
+        disable = { "unused-local", "unused-function", "redefined-local" }
+      }
+    }
+  }
+}
+
+lspconfig.tsserver.setup {
+  capabilities = capabilities
+}
 lspconfig.gopls.setup {}
 lspconfig.vimls.setup {}
 lspconfig.rust_analyzer.setup {
+  capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
       inlayHints = {
@@ -106,6 +101,7 @@ lspconfig.rust_analyzer.setup {
       }
     }
   },
+  -- cmd = { "rustup", "nightly", "rust-analyzer" },
   flags = lsp_flags,
   on_attach = lsp_on_attach,
 }
@@ -156,7 +152,9 @@ vim.diagnostic.config({
   --  spacing = 2,
   --  severity = vim.diagnostic.severity.ERROR
   --},
-  virtual_text = false,
+  virtual_text = {
+    severity = { min = vim.diagnostic.severity.ERROR }
+  },
   float = true
 })
 

@@ -1,4 +1,6 @@
 require('notify').setup {
   render = "minimal",
-  level = 1
+  timeout = 5,
+  level = 1,
+  top_down = false,
 }

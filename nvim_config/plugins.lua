@@ -10,13 +10,29 @@ require('packer').startup(function(use)
   use { 'mortepau/codicons.nvim' }
   use { 'onsails/lspkind.nvim' }
 
-  use {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  -- Disabled until maintainer provides more configurations like severity filter
+  -- use {
+  --   "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+  --   config = function()
+  --     require("lsp_lines").setup()
+  --   end,
+  -- }
+
+  use({
+    "folke/noice.nvim",
+    event = "VimEnter",
     config = function()
-      require("lsp_lines").setup()
+      require("noice").setup()
     end,
-  }
-  --
+    requires = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    }
+  })
+
+  use 'folke/lsp-colors.nvim'
+
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
@@ -85,7 +101,7 @@ require('packer').startup(function(use)
 
   -- Debugging
   use { 'mfussenegger/nvim-dap' }
-  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
   use { 'nvim-lualine/lualine.nvim' }
   use { 'mg979/vim-visual-multi', branch = 'master' }
   use { 'tanvirtin/monokai.nvim' }
@@ -108,5 +124,3 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = "plugins.lua",
   command = "source <afile> | PackerCompile",
 })
-
-

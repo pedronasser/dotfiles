@@ -1,4 +1,4 @@
-theme = "monokai_pro"
+theme = "edge_aura"
 
 [editor]
 mouse = true
@@ -18,6 +18,8 @@ normal = "block"
 select = "block"
 
 [keys.insert]
+left = "move_char_left"
+right = "move_char_right"
 A-w = ":buffer-close!"
 C-s = ":w"
 C-a = "select_all"

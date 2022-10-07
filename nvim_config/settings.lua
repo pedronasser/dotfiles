@@ -1,5 +1,5 @@
 vim.opt.showmatch = true
-vim.opt.ignorecase = true
+vim.opt.ignorecase = false
 vim.opt.selection = "inclusive"
 vim.opt.autoindent = false
 vim.opt.compatible = false
@@ -9,6 +9,7 @@ vim.opt.hlsearch = false
 vim.opt.smartindent = false
 vim.opt.spell = false
 vim.opt.wildmode = { "longest", "list" }
+vim.opt.ch = 0
 
 vim.g.mapleader = " "
 

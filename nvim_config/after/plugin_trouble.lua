@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 require("trouble").setup {
   position = "bottom",
-  mode = "document_diagnostics",
+  mode = "workspace_diagnostics",
   auto_open = false,
   auto_close = false,
   auto_preview = false,

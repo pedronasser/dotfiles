@@ -152,8 +152,9 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # alias e="codium"
 alias vim="nvim"
-alias e="hx"
-export EDITOR="hx"
+alias e="nvim"
+alias rust-analyzer="rustup run nightly rust-analyzer"
+export EDITOR="nvim"
 
 export PATH=$PATH:~/.local/bin
 
@@ -185,7 +186,10 @@ alias pop="kitty +kitten ssh dev@pop-os.local"
 
 [ -z ${WSLENV+x} ] || export PATH="${PATH:+"$PATH:"}$HOME/bin/win-bash-xclip-xsel"
 
-export WASMTIME_HOME="$HOME/.wasmtime"
 
 alias dnvim="~/dotfiles/neovim.sh"
 alias luamake=/home/dev/Downloads/lua-language-server/3rd/luamake/luamake
+
+export WASMTIME_HOME="$HOME/.wasmtime"
+
+export PATH="$WASMTIME_HOME/bin:$PATH"

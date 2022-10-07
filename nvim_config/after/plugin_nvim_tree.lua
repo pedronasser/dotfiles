@@ -30,6 +30,7 @@ nvimtree.setup({
         { key = "u", action = "dir_up" },
       },
     },
+    side = 'right'
   },
   git = {
     ignore = false,

@@ -1,0 +1,10 @@
+-- local lsp_lines = require "lsp_lines"
+-- local keymap = require("nvim_config.keymap")
+--
+-- keymap(function(nmap, vmap, imap, map, xmap)
+--   nmap("<Space>ll", function() require "lsp_lines".toggle() end)
+-- end)
+--
+-- lsp_lines.setup()
+--
+-- vim.diagnostic.config({ virtual_lines = { only_current_line = true } })
