@@ -7,7 +7,7 @@ in {
   home-manager.users.${personal.username} = {
     imports = [
       ../shared/zsh.nix
-    ]
+    ];
 
     home.stateVersion = "23.05";
 
