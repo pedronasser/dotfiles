@@ -22,7 +22,6 @@
       plugins = [
         "git"
         "rust"
-        "golang"
         "history"
         "npm"
       ];
