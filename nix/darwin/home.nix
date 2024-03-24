@@ -19,6 +19,7 @@ in {
     };
 
     home.shellAliases = {
+	vim = "nvim";
     };
 
     home.packages = with pkgs; [
