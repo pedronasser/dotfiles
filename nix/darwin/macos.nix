@@ -1,6 +1,4 @@
 { self, nixpkgs, darwin, nix-homebrew, homebrew-core, homebrew-cask, ... }: {
-
-
   system.defaults = {
     dock = {
       autohide = true;

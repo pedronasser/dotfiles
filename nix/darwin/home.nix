@@ -1,4 +1,4 @@
-{ home-manager, config, pkgs, lib, ... }:
+{ home-manager, config, pkgs, lib, inputs, ... }:
 
 let
   personal = import ./personal.nix;
@@ -24,8 +24,7 @@ in {
 
     home.packages = with pkgs; [
       #development
-      gopls
-      go
+      helix
       git
       vim
       neovim
@@ -69,6 +68,7 @@ in {
         enableZshIntegration = true;
       };
 
+
       lazygit = {
         enable = true;
       };
@@ -76,7 +76,6 @@ in {
       # programs.home-manager.enable = true;
       bat.enable = true;
     };
-
 
     # https://github.com/nix-community/home-manager/issues/3344
     manual.manpages.enable = false;

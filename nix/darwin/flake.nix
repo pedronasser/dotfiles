@@ -8,8 +8,17 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
-  outputs = { self, nix-darwin, home-manager, nix-homebrew, nixpkgs, ... }@inputs:
+  outputs = { self, nix-darwin, home-manager, nix-homebrew, nixpkgs, homebrew-core, homebrew-cask, ... }@inputs:
     let
       inherit (self) outputs;
     in
@@ -28,7 +37,7 @@
           ./host.nix
           ./home.nix
         ];
-        # specialArgs = { inherit inputs outputs; };
+        specialArgs = { inherit inputs outputs homebrew-core homebrew-cask; };
       };
 
       # Expose the package set, including overlays, for convenience.

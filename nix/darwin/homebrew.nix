@@ -8,6 +8,7 @@ in {
       # Homebrew is *installed* via the flake input nix-homebrew
       enable = true;
       casks = pkgs.callPackage ./casks.nix { };
+      brews = pkgs.callPackage ./brews.nix { };
   };
 
   nix-homebrew = {
@@ -18,10 +19,10 @@ in {
       user = personal.username;
 
       # # Optional: Declarative tap management
-      # taps = {
-      #   "homebrew/homebrew-core" = homebrew-core;
-      #   "homebrew/homebrew-cask" = homebrew-cask;
-      # };
+      taps = {
+        "homebrew/homebrew-core" = homebrew-core;
+        "homebrew/homebrew-cask" = homebrew-cask;
+      };
 
       # Optional: Enable fully-declarative tap management
       #
